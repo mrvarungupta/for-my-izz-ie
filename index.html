@@ -9,9 +9,9 @@
 
 <style>
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
 }
 
@@ -20,22 +20,64 @@ body {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background: #090308;
+    background: #050006;
     font-family: Georgia, "Times New Roman", serif;
-    color: #fff;
-}
-
-body {
+    color: white;
     touch-action: manipulation;
 }
 
+body {
+    position: relative;
+}
+
 /* =========================
-   MAIN STORY
+   AUDIO
 ========================= */
 
-#story {
+#bgMusic {
+    display: none;
+}
+
+.music-btn {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    z-index: 9999;
+
+    width: 46px;
+    height: 46px;
+
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.35);
+
+    background: rgba(255,255,255,.12);
+    backdrop-filter: blur(10px);
+
+    color: white;
+    font-size: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    box-shadow: 0 0 20px rgba(255,80,150,.25);
+
+    transition: .3s ease;
+}
+
+.music-btn:active {
+    transform: scale(.88);
+}
+
+/* =========================
+   MAIN
+========================= */
+
+#app {
     width: 100%;
-    height: 100dvh;
+    height: 100%;
     position: relative;
     overflow: hidden;
 }
@@ -43,161 +85,205 @@ body {
 .scene {
     position: absolute;
     inset: 0;
-    width: 100%;
-    height: 100%;
-    padding: 30px 22px 90px;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     text-align: center;
+
+    padding: 35px 22px;
 
     opacity: 0;
     visibility: hidden;
-    transform: scale(1.04);
+
+    transform: scale(1.05);
+
     transition:
-        opacity 0.8s ease,
-        transform 0.9s ease,
-        visibility 0.8s;
-    
-    background:
-        radial-gradient(circle at 50% 35%, rgba(255, 70, 130, .15), transparent 35%),
-        radial-gradient(circle at 20% 80%, rgba(255, 20, 100, .08), transparent 30%),
-        linear-gradient(145deg, #090308, #180710 55%, #090308);
+        opacity .9s ease,
+        transform 1.1s ease,
+        visibility .9s;
 }
 
 .scene.active {
     opacity: 1;
     visibility: visible;
     transform: scale(1);
-    z-index: 5;
-}
-
-.scene-inner {
-    width: min(700px, 100%);
-    max-height: 90vh;
-    overflow-y: auto;
-    scrollbar-width: none;
-    padding: 15px;
-}
-
-.scene-inner::-webkit-scrollbar {
-    display: none;
 }
 
 /* =========================
-   TEXT
+   BACKGROUNDS
 ========================= */
 
-.kicker {
-    color: #ff9fbd;
+.scene:nth-child(1) {
+    background:
+        radial-gradient(circle at 50% 40%, #46102e 0%, #160717 35%, #050006 80%);
+}
+
+.scene:nth-child(2) {
+    background:
+        radial-gradient(circle at 50% 45%, #68133b 0%, #210817 42%, #060006 85%);
+}
+
+.scene:nth-child(3) {
+    background:
+        radial-gradient(circle at 50% 45%, #481b52 0%, #16071e 45%, #050006 85%);
+}
+
+.scene:nth-child(4) {
+    background:
+        radial-gradient(circle at 50% 40%, #64133c 0%, #1e0719 45%, #050006 85%);
+}
+
+.scene:nth-child(5) {
+    background:
+        radial-gradient(circle at 50% 40%, #5b1744 0%, #170817 45%, #050006 85%);
+}
+
+.scene:nth-child(6) {
+    background:
+        radial-gradient(circle at 50% 40%, #361a50 0%, #12071a 45%, #050006 85%);
+}
+
+.scene:nth-child(7) {
+    background:
+        radial-gradient(circle at 50% 40%, #58182e 0%, #1b0712 45%, #050006 85%);
+}
+
+.scene:nth-child(8) {
+    background:
+        radial-gradient(circle at 50% 40%, #71153e 0%, #230711 45%, #050006 85%);
+}
+
+.scene:nth-child(9) {
+    background:
+        radial-gradient(circle at 50% 45%, #8b1245 0%, #39091f 40%, #070006 85%);
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.content {
+    width: min(900px, 100%);
+    position: relative;
+    z-index: 20;
+}
+
+.small {
+    font-size: clamp(13px, 2vw, 17px);
     letter-spacing: 4px;
-    font-size: 12px;
     text-transform: uppercase;
+    opacity: .78;
     margin-bottom: 18px;
-    animation: fadeUp 1s ease both;
 }
 
 h1 {
-    font-size: clamp(42px, 11vw, 82px);
-    line-height: .95;
-    margin-bottom: 22px;
+    font-size: clamp(42px, 8vw, 88px);
+    line-height: 1.02;
+    font-weight: 400;
+
     text-shadow:
-        0 0 12px rgba(255, 80, 140, .5),
-        0 0 35px rgba(255, 30, 100, .25);
+        0 0 15px rgba(255,120,180,.55),
+        0 0 45px rgba(255,50,130,.3);
 }
 
 h2 {
-    font-size: clamp(30px, 8vw, 56px);
-    line-height: 1.05;
+    font-size: clamp(30px, 6vw, 58px);
+    font-weight: 400;
     margin-bottom: 20px;
+
+    text-shadow:
+        0 0 20px rgba(255,100,180,.4);
 }
 
-p {
-    font-family: Arial, sans-serif;
-    color: #f6dfe8;
+.subtitle {
+    margin-top: 20px;
+    font-size: clamp(17px, 3vw, 24px);
     line-height: 1.7;
-    font-size: 16px;
+    color: rgba(255,255,255,.86);
 }
 
-.big-heart {
-    font-size: 80px;
+.highlight {
+    color: #ff9dc8;
+    text-shadow: 0 0 18px rgba(255,70,150,.7);
+}
+
+.heart {
     display: inline-block;
-    filter: drop-shadow(0 0 18px #ff3f78);
-    animation: heartBeat 1.6s infinite;
-    margin-bottom: 20px;
+    animation: heartbeat 1.4s infinite;
 }
 
-.glow {
-    color: #ff83aa;
-}
-
-.pink {
-    color: #ff6f9c;
+@keyframes heartbeat {
+    0%,100% { transform: scale(1); }
+    15% { transform: scale(1.16); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.1); }
 }
 
 /* =========================
-   TAP AREA
+   TAP HINT
 ========================= */
 
 .tap-hint {
-    position: fixed;
-    left: 50%;
-    bottom: 26px;
-    transform: translateX(-50%);
-    z-index: 100;
+    margin-top: 40px;
 
-    color: #ffd9e5;
-    font-family: Arial, sans-serif;
-    font-size: 12px;
-    letter-spacing: 2px;
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
 
-    padding: 10px 18px;
-    border: 1px solid rgba(255,255,255,.15);
-    border-radius: 30px;
+    color: rgba(255,255,255,.55);
 
-    background: rgba(255,255,255,.05);
-    backdrop-filter: blur(10px);
-
-    animation:
-        hintPulse 2s infinite,
-        fadeIn 1s ease;
+    animation: hintPulse 2s infinite;
 }
 
-.tap-hint span {
-    display: inline-block;
-    animation: tinyBounce 1.5s infinite;
+@keyframes hintPulse {
+    0%,100% { opacity: .35; }
+    50% { opacity: 1; }
 }
 
 /* =========================
-   ROMANTIC NEXT BUTTON
+   NEXT HEART
 ========================= */
 
-.next-btn {
-    border: 0;
-    outline: none;
-    cursor: pointer;
+.next-heart {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
 
-    width: 62px;
-    height: 62px;
+    width: 45px;
+    height: 45px;
+
     border-radius: 50%;
 
-    background:
-        radial-gradient(circle, #ff739d, #e92562);
+    border: 1px solid rgba(255,255,255,.25);
 
-    color: white;
-    font-size: 25px;
+    background: rgba(255,255,255,.08);
 
-    box-shadow:
-        0 0 20px rgba(255, 60, 120, .5),
-        0 0 50px rgba(255, 60, 120, .2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    animation: buttonPulse 2s infinite;
+    font-size: 20px;
 
-    margin-top: 28px;
+    animation:
+        nextPulse 2s infinite,
+        heartbeat 1.5s infinite;
+
+    z-index: 100;
 }
 
-.next-btn:active {
-    transform: scale(.88);
+@keyframes nextPulse {
+    0%,100% {
+        box-shadow: 0 0 5px rgba(255,70,150,.1);
+    }
+
+    50% {
+        box-shadow:
+            0 0 25px rgba(255,70,150,.55),
+            0 0 45px rgba(255,70,150,.2);
+    }
 }
 
 /* =========================
@@ -207,35 +293,74 @@ p {
 .countdown {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin: 25px 0;
+    gap: 12px;
+    margin-top: 35px;
     flex-wrap: wrap;
 }
 
 .time-box {
-    min-width: 70px;
+    min-width: 72px;
     padding: 14px 10px;
+
     border-radius: 18px;
 
-    background: rgba(255,255,255,.05);
-    border: 1px solid rgba(255,130,170,.18);
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.13);
 
-    box-shadow:
-        inset 0 0 20px rgba(255,255,255,.02),
-        0 10px 40px rgba(0,0,0,.25);
+    backdrop-filter: blur(10px);
 }
 
 .time-box strong {
     display: block;
-    font-size: 24px;
-    color: #ff8faf;
+    font-size: 27px;
+    font-weight: 400;
 }
 
 .time-box span {
-    font-family: Arial, sans-serif;
-    font-size: 9px;
-    letter-spacing: 1px;
-    color: #d9b7c3;
+    display: block;
+    margin-top: 5px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    opacity: .6;
+}
+
+/* =========================
+   RELATIONSHIP COUNTER
+========================= */
+
+.counter {
+    margin-top: 30px;
+
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+
+    flex-wrap: wrap;
+}
+
+.counter-card {
+    padding: 18px 22px;
+    min-width: 90px;
+
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.13);
+
+    border-radius: 18px;
+
+    backdrop-filter: blur(10px);
+}
+
+.counter-card strong {
+    display: block;
+    font-size: 30px;
+    color: #ff9bc7;
+}
+
+.counter-card span {
+    font-size: 11px;
+    letter-spacing: 2px;
+    opacity: .6;
 }
 
 /* =========================
@@ -243,33 +368,38 @@ p {
 ========================= */
 
 .cards {
+    margin: 25px auto 0;
+
+    width: min(850px, 100%);
+
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    margin-top: 25px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
 }
 
 .card {
-    padding: 20px 12px;
-    min-height: 115px;
+    padding: 22px 15px;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    border-radius: 20px;
 
-    border-radius: 22px;
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.12);
 
-    background: linear-gradient(
-        145deg,
-        rgba(255,255,255,.08),
-        rgba(255,255,255,.025)
-    );
+    backdrop-filter: blur(12px);
 
-    border: 1px solid rgba(255,130,170,.15);
-
-    transition: .3s ease;
     cursor: pointer;
+
+    transition: .35s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px) scale(1.02);
+
+    background: rgba(255,255,255,.1);
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.25),
+        0 0 25px rgba(255,70,150,.15);
 }
 
 .card:active {
@@ -277,39 +407,45 @@ p {
 }
 
 .card .emoji {
-    font-size: 34px;
+    display: block;
+    font-size: 30px;
     margin-bottom: 10px;
 }
 
-.card strong {
-    font-size: 15px;
-}
-
-.card small {
-    margin-top: 7px;
-    color: #d8bac4;
-    font-family: Arial, sans-serif;
+.card p {
+    font-size: 14px;
+    line-height: 1.5;
+    opacity: .85;
 }
 
 /* =========================
    PROMISE CARDS
 ========================= */
 
+.promise-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+
+    max-width: 850px;
+    margin: 30px auto;
+}
+
 .promise {
-    position: relative;
-    min-height: 150px;
-    perspective: 900px;
+    height: 170px;
+    perspective: 1000px;
     cursor: pointer;
 }
 
 .promise-inner {
     width: 100%;
     height: 100%;
-    min-height: 150px;
+
     position: relative;
 
-    transition: transform .7s;
     transform-style: preserve-3d;
+
+    transition: transform .7s;
 }
 
 .promise.flipped .promise-inner {
@@ -324,27 +460,31 @@ p {
     display: flex;
     align-items: center;
     justify-content: center;
+
     padding: 20px;
 
     border-radius: 22px;
 
     backface-visibility: hidden;
 
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,80,130,.12),
-            rgba(255,255,255,.035)
-        );
+    background: rgba(255,255,255,.06);
 
-    border: 1px solid rgba(255,130,170,.15);
+    border: 1px solid rgba(255,255,255,.13);
+
+    backdrop-filter: blur(12px);
+}
+
+.promise-front {
+    font-size: 35px;
 }
 
 .promise-back {
     transform: rotateY(180deg);
-    color: #ffd9e5;
-    font-family: Arial, sans-serif;
-    line-height: 1.5;
+
+    font-size: 15px;
+    line-height: 1.6;
+
+    color: rgba(255,255,255,.9);
 }
 
 /* =========================
@@ -352,33 +492,32 @@ p {
 ========================= */
 
 .letter {
-    padding: 25px;
-    border-radius: 28px;
+    max-width: 750px;
+    margin: auto;
 
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.08),
-            rgba(255,80,130,.04)
-        );
+    padding: 30px;
 
-    border: 1px solid rgba(255,160,190,.15);
+    border-radius: 25px;
+
+    background: rgba(255,255,255,.055);
+    border: 1px solid rgba(255,255,255,.12);
+
+    backdrop-filter: blur(15px);
 
     box-shadow:
-        0 20px 80px rgba(0,0,0,.35);
-
-    text-align: left;
+        0 20px 60px rgba(0,0,0,.25);
 }
 
 .letter p {
-    margin-bottom: 15px;
+    font-size: clamp(16px, 2.5vw, 21px);
+    line-height: 1.9;
+    color: rgba(255,255,255,.9);
 }
 
 .signature {
-    margin-top: 25px;
-    text-align: right;
-    color: #ff89ad;
-    font-size: 22px;
+    margin-top: 22px;
+    font-size: 23px;
+    color: #ff9cc7;
 }
 
 /* =========================
@@ -386,131 +525,246 @@ p {
 ========================= */
 
 .secret-heart {
-    width: 125px;
-    height: 125px;
-    border-radius: 50%;
+    width: 150px;
+    height: 150px;
 
     margin: 35px auto;
+
+    border-radius: 50%;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    font-size: 55px;
+    font-size: 70px;
+
+    background:
+        radial-gradient(circle,
+        rgba(255,120,180,.45),
+        rgba(255,30,120,.12) 60%,
+        transparent 70%);
+
+    border: 1px solid rgba(255,140,200,.3);
+
+    box-shadow:
+        0 0 30px rgba(255,70,150,.4),
+        0 0 80px rgba(255,70,150,.2);
 
     cursor: pointer;
 
-    background:
-        radial-gradient(circle, #ff749e, #c71951);
-
-    box-shadow:
-        0 0 30px rgba(255,60,120,.7),
-        0 0 90px rgba(255,60,120,.3);
-
-    animation:
-        heartBeat 1.5s infinite,
-        float 3s ease-in-out infinite;
+    animation: secretGlow 2s infinite;
 }
 
-.secret-message {
-    opacity: 0;
-    transform: translateY(15px);
-    transition: .7s ease;
-    pointer-events: none;
-}
+@keyframes secretGlow {
+    0%,100% {
+        transform: scale(1);
+    }
 
-.secret-message.show {
-    opacity: 1;
-    transform: translateY(0);
+    50% {
+        transform: scale(1.08);
+    }
 }
 
 /* =========================
    FINAL
 ========================= */
 
-#finalMessage {
-    opacity: 0;
-    transform: scale(.7);
-    transition: 1s ease;
-}
-
-#finalMessage.show {
-    opacity: 1;
-    transform: scale(1);
-}
-
 .final-title {
-    font-size: clamp(30px, 8vw, 65px);
-    color: #ff89ad;
+    font-size: clamp(45px, 10vw, 100px);
+
+    font-weight: 700;
+
+    color: #fff;
+
     text-shadow:
-        0 0 15px #ff3f78,
-        0 0 45px rgba(255,40,100,.5);
+        0 0 10px #ff8aba,
+        0 0 30px #ff3d91,
+        0 0 70px #ff1477;
+
+    animation: finalGlow 2s infinite;
 }
 
-.love-you {
-    font-size: clamp(35px, 9vw, 72px);
-    font-weight: bold;
-    margin: 18px 0;
+@keyframes finalGlow {
+    0%,100% {
+        transform: scale(1);
+    }
 
-    background: linear-gradient(
-        90deg,
-        #fff,
-        #ff82aa,
-        #fff,
-        #ff5d91
-    );
+    50% {
+        transform: scale(1.04);
+    }
+}
 
-    background-size: 300%;
-    -webkit-background-clip: text;
-    color: transparent;
+.i-love-you {
+    margin-top: 25px;
 
-    animation: gradientMove 3s infinite linear;
+    font-size: clamp(30px, 7vw, 65px);
+
+    color: #ff9dc9;
+
+    text-shadow:
+        0 0 15px rgba(255,70,150,.8),
+        0 0 45px rgba(255,30,130,.5);
+
+    animation: lovePulse 1.5s infinite;
+}
+
+@keyframes lovePulse {
+    0%,100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.08);
+    }
+}
+
+.kisses {
+    margin-top: 20px;
+    font-size: clamp(25px, 5vw, 45px);
+    letter-spacing: 8px;
 }
 
 /* =========================
    FLOATING PARTICLES
 ========================= */
 
-.floating-layer {
+#particles {
     position: fixed;
     inset: 0;
+
     pointer-events: none;
+
     overflow: hidden;
-    z-index: 20;
+
+    z-index: 5;
 }
 
-.float-item {
+.float {
     position: absolute;
-    bottom: -60px;
 
-    font-size: 20px;
+    bottom: -50px;
 
-    animation:
-        floatUp linear forwards;
+    animation: floatUp linear forwards;
 
     opacity: 0;
+
+    user-select: none;
+}
+
+@keyframes floatUp {
+    0% {
+        transform:
+            translateY(0)
+            translateX(0)
+            rotate(0deg)
+            scale(.6);
+
+        opacity: 0;
+    }
+
+    10% {
+        opacity: .9;
+    }
+
+    90% {
+        opacity: .8;
+    }
+
+    100% {
+        transform:
+            translateY(-115vh)
+            translateX(var(--drift))
+            rotate(var(--rotate))
+            scale(1.2);
+
+        opacity: 0;
+    }
 }
 
 /* =========================
-   SPARKLES
+   CLICK BURST
 ========================= */
 
-.sparkle {
+.burst {
     position: fixed;
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-
-    background: white;
 
     pointer-events: none;
-    z-index: 10;
 
-    box-shadow:
-        0 0 8px white,
-        0 0 20px #ff75a0;
+    z-index: 99999;
 
-    animation: sparkleAnim 1.8s ease-out forwards;
+    font-size: 24px;
+
+    animation: burstAnim 900ms ease-out forwards;
+}
+
+@keyframes burstAnim {
+    0% {
+        transform: translate(-50%,-50%) scale(.3);
+        opacity: 1;
+    }
+
+    100% {
+        transform:
+            translate(
+                calc(-50% + var(--x)),
+                calc(-50% + var(--y))
+            )
+            scale(1.5);
+
+        opacity: 0;
+    }
+}
+
+/* =========================
+   FINAL EXPLOSION
+========================= */
+
+.explosion {
+    position: fixed;
+
+    left: 50%;
+    top: 50%;
+
+    width: 20px;
+    height: 20px;
+
+    z-index: 99999;
+
+    pointer-events: none;
+}
+
+.explosion-heart {
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    font-size: 22px;
+
+    animation:
+        explodeHeart 2.2s ease-out forwards;
+}
+
+@keyframes explodeHeart {
+    0% {
+        transform:
+            translate(-50%,-50%)
+            scale(.2);
+
+        opacity: 1;
+    }
+
+    100% {
+        transform:
+            translate(
+                calc(-50% + var(--ex)),
+                calc(-50% + var(--ey))
+            )
+            rotate(var(--rot))
+            scale(var(--scale));
+
+        opacity: 0;
+    }
 }
 
 /* =========================
@@ -520,7 +774,8 @@ p {
 .popup {
     position: fixed;
     inset: 0;
-    z-index: 200;
+
+    z-index: 999999;
 
     display: flex;
     align-items: center;
@@ -529,7 +784,8 @@ p {
     padding: 25px;
 
     background: rgba(0,0,0,.65);
-    backdrop-filter: blur(12px);
+
+    backdrop-filter: blur(8px);
 
     opacity: 0;
     visibility: hidden;
@@ -543,267 +799,186 @@ p {
 }
 
 .popup-box {
-    max-width: 420px;
+    max-width: 500px;
     width: 100%;
 
-    padding: 30px;
+    padding: 35px 25px;
 
-    border-radius: 28px;
-
-    text-align: center;
+    border-radius: 25px;
 
     background:
         linear-gradient(
             145deg,
-            #28101a,
-            #13070d
+            rgba(70,15,40,.96),
+            rgba(20,5,20,.96)
         );
 
-    border: 1px solid rgba(255,130,170,.25);
+    border: 1px solid rgba(255,140,200,.25);
 
     box-shadow:
-        0 30px 100px rgba(0,0,0,.7);
+        0 25px 100px rgba(0,0,0,.7),
+        0 0 50px rgba(255,50,140,.15);
 
     transform: scale(.8);
-    transition: .4s ease;
+
+    transition: .35s ease;
 }
 
 .popup.show .popup-box {
     transform: scale(1);
 }
 
+.popup-box .big {
+    font-size: 45px;
+    margin-bottom: 15px;
+}
+
 .popup-box h3 {
     font-size: 28px;
+    font-weight: 400;
+    color: #ff9dc8;
     margin-bottom: 15px;
-    color: #ff91b2;
 }
 
-.popup-close {
-    margin-top: 20px;
+.popup-box p {
+    font-size: 17px;
+    line-height: 1.7;
+    color: rgba(255,255,255,.88);
+}
 
-    border: 0;
-    padding: 12px 25px;
-    border-radius: 30px;
+.close-popup {
+    margin-top: 22px;
 
-    background: #f04478;
+    border: 1px solid rgba(255,255,255,.2);
+
+    background: rgba(255,255,255,.08);
+
     color: white;
 
+    padding: 11px 22px;
+
+    border-radius: 30px;
+
     cursor: pointer;
-}
-
-/* =========================
-   HEART BLAST
-========================= */
-
-.blast-heart {
-    position: fixed;
-    left: 50%;
-    top: 50%;
-
-    transform:
-        translate(-50%, -50%)
-        scale(.1);
-
-    font-size: 100px;
-
-    z-index: 500;
-    pointer-events: none;
-
-    opacity: 0;
-
-    animation: blastHeart 1.4s ease forwards;
-}
-
-/* =========================
-   ANIMATIONS
-========================= */
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes fadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes heartBeat {
-    0%,100% { transform: scale(1); }
-    50% { transform: scale(1.13); }
-}
-
-@keyframes buttonPulse {
-    0%,100% {
-        box-shadow:
-            0 0 20px rgba(255,60,120,.5),
-            0 0 50px rgba(255,60,120,.2);
-    }
-    50% {
-        box-shadow:
-            0 0 30px rgba(255,60,120,.8),
-            0 0 80px rgba(255,60,120,.35);
-    }
-}
-
-@keyframes hintPulse {
-    0%,100% {
-        opacity: .55;
-        transform: translateX(-50%);
-    }
-    50% {
-        opacity: 1;
-        transform: translateX(-50%) translateY(-5px);
-    }
-}
-
-@keyframes tinyBounce {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-4px); }
-}
-
-@keyframes floatUp {
-    0% {
-        transform:
-            translateY(0)
-            translateX(0)
-            rotate(0deg)
-            scale(.7);
-        opacity: 0;
-    }
-
-    10% {
-        opacity: 1;
-    }
-
-    50% {
-        transform:
-            translateY(-50vh)
-            translateX(30px)
-            rotate(20deg)
-            scale(1);
-    }
-
-    100% {
-        transform:
-            translateY(-115vh)
-            translateX(-40px)
-            rotate(-20deg)
-            scale(1.2);
-        opacity: 0;
-    }
-}
-
-@keyframes sparkleAnim {
-    0% {
-        transform: scale(0);
-        opacity: 0;
-    }
-
-    40% {
-        transform: scale(1.5);
-        opacity: 1;
-    }
-
-    100% {
-        transform: scale(0);
-        opacity: 0;
-    }
-}
-
-@keyframes float {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-12px); }
-}
-
-@keyframes gradientMove {
-    0% { background-position: 0%; }
-    100% { background-position: 300%; }
-}
-
-@keyframes blastHeart {
-    0% {
-        opacity: 0;
-        transform:
-            translate(-50%,-50%)
-            scale(.1);
-    }
-
-    20% {
-        opacity: 1;
-    }
-
-    60% {
-        opacity: 1;
-        transform:
-            translate(-50%,-50%)
-            scale(2);
-    }
-
-    100% {
-        opacity: 0;
-        transform:
-            translate(-50%,-50%)
-            scale(3.5);
-    }
 }
 
 /* =========================
    MOBILE
 ========================= */
 
-@media(max-width: 600px) {
+@media(max-width:700px) {
 
     .scene {
-        padding: 20px 16px 85px;
-    }
-
-    .scene-inner {
-        padding: 8px;
-        max-height: 91vh;
-    }
-
-    p {
-        font-size: 15px;
+        padding: 30px 18px 75px;
     }
 
     .cards {
-        gap: 9px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
     }
 
     .card {
-        min-height: 105px;
-        padding: 15px 8px;
+        padding: 16px 10px;
     }
 
     .card .emoji {
-        font-size: 28px;
+        font-size: 25px;
+    }
+
+    .card p {
+        font-size: 12px;
+    }
+
+    .promise-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .promise {
+        height: 135px;
+    }
+
+    .promise-back {
+        font-size: 12px;
+    }
+
+    .letter {
+        padding: 23px 18px;
+        max-height: 65vh;
+        overflow: hidden;
+    }
+
+    .letter p {
+        font-size: 15px;
+        line-height: 1.65;
+    }
+
+    .countdown {
+        gap: 7px;
     }
 
     .time-box {
-        min-width: 62px;
-        padding: 11px 7px;
+        min-width: 65px;
+        padding: 12px 7px;
     }
 
     .time-box strong {
-        font-size: 21px;
+        font-size: 23px;
+    }
+
+    .counter {
+        gap: 7px;
+    }
+
+    .counter-card {
+        min-width: 75px;
+        padding: 14px 12px;
+    }
+
+    .counter-card strong {
+        font-size: 24px;
+    }
+
+    .music-btn {
+        top: 12px;
+        right: 12px;
+        width: 42px;
+        height: 42px;
+    }
+}
+
+@media(max-height:650px) {
+    h1 {
+        font-size: 42px;
+    }
+
+    h2 {
+        font-size: 30px;
+    }
+
+    .subtitle {
+        font-size: 15px;
+        line-height: 1.5;
     }
 
     .tap-hint {
-        bottom: 18px;
-        font-size: 10px;
-        padding: 9px 15px;
+        margin-top: 20px;
     }
 
-    .next-btn {
-        width: 56px;
-        height: 56px;
+    .next-heart {
+        bottom: 12px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+
+@media(prefers-reduced-motion:reduce) {
+    * {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
     }
 }
 </style>
@@ -811,317 +986,365 @@ p {
 
 <body>
 
-<div id="story">
-
 <!-- =========================
-     SCENE 1
+     MUSIC
 ========================= -->
 
-<section class="scene active" data-scene="0">
+<audio id="bgMusic" loop preload="auto">
+    <source src="preet-re.mp3" type="audio/mpeg">
+</audio>
 
-    <div class="scene-inner">
+<button
+    class="music-btn"
+    id="musicButton"
+    aria-label="Music">
+    🎵
+</button>
 
-        <div class="big-heart">❤️</div>
+<!-- =========================
+     PARTICLES
+========================= -->
 
-        <div class="kicker">
-            A little surprise for you
-        </div>
+<div id="particles"></div>
+
+<!-- =========================
+     APP
+========================= -->
+
+<div id="app">
+
+<!-- SCENE 1 -->
+
+<section class="scene active" data-scene="1">
+
+    <div class="content">
+
+        <div class="small">A little surprise for you</div>
 
         <h1>
-            Hey,<br>
-            <span class="glow">Izzie…</span>
+            Hey, <span class="highlight">Izzie</span>
+            <span class="heart">❤️</span>
         </h1>
 
-        <p>
-            Before you read anything else...
-            I just want you to know that this little world
-            was made with one person in mind.
+        <p class="subtitle">
+            Before anything else...
+            I just want you to know how incredibly
+            <span class="highlight">special</span> you are to me.
         </p>
 
-        <button class="next-btn" aria-label="Continue">
-            💗
-        </button>
+        <div class="tap-hint">
+            Tap anywhere to begin ❤️
+        </div>
 
     </div>
+
+    <div class="next-heart">❤️</div>
 
 </section>
 
 
-<!-- =========================
-     SCENE 2
-========================= -->
+<!-- SCENE 2 -->
 
-<section class="scene" data-scene="1">
+<section class="scene" data-scene="2">
 
-    <div class="scene-inner">
+    <div class="content">
 
-        <div class="kicker">
-            18 October 2026
-        </div>
+        <div class="small">Save this date in your heart</div>
 
         <h2>
-            Happy Birthday,<br>
-            <span class="pink">My Laado ❤️</span>
+            <span class="highlight">18 October 2026</span>
         </h2>
 
-        <p>
-            Today isn't just another date on the calendar.
-            It's the day the world became a little more beautiful
-            because you were born.
+        <p class="subtitle">
+            Because today isn't just another day...
+            it's the day my favourite person came into this world. 🎂❤️
         </p>
 
         <div class="countdown">
 
             <div class="time-box">
                 <strong id="days">0</strong>
-                <span>DAYS</span>
+                <span>Days</span>
             </div>
 
             <div class="time-box">
                 <strong id="hours">0</strong>
-                <span>HOURS</span>
+                <span>Hours</span>
             </div>
 
             <div class="time-box">
                 <strong id="minutes">0</strong>
-                <span>MINUTES</span>
+                <span>Minutes</span>
             </div>
 
             <div class="time-box">
                 <strong id="seconds">0</strong>
-                <span>SECONDS</span>
+                <span>Seconds</span>
             </div>
 
         </div>
 
-        <button class="next-btn" aria-label="Continue">
-            💕
-        </button>
+        <p class="subtitle">
+            Happy Birthday, my <span class="highlight">Laado</span> 🎂💗
+        </p>
 
     </div>
+
+    <div class="next-heart">❤️</div>
 
 </section>
 
 
-<!-- =========================
-     SCENE 3
-========================= -->
-
-<section class="scene" data-scene="2">
-
-    <div class="scene-inner">
-
-        <div class="kicker">
-            Since 24 July 2026
-        </div>
-
-        <h2>
-            And somehow...
-        </h2>
-
-        <p>
-            Since the day our story began,
-            you've slowly become one of the most
-            beautiful parts of my everyday life.
-        </p>
-
-        <div class="countdown">
-
-            <div class="time-box">
-                <strong id="relDays">0</strong>
-                <span>DAYS</span>
-            </div>
-
-            <div class="time-box">
-                <strong id="relHours">0</strong>
-                <span>HOURS</span>
-            </div>
-
-            <div class="time-box">
-                <strong id="relMinutes">0</strong>
-                <span>MINUTES</span>
-            </div>
-
-        </div>
-
-        <p class="pink">
-            And I wouldn't trade this feeling for anything. ❤️
-        </p>
-
-        <button class="next-btn" aria-label="Continue">
-            💖
-        </button>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     SCENE 4
-========================= -->
+<!-- SCENE 3 -->
 
 <section class="scene" data-scene="3">
 
-    <div class="scene-inner">
+    <div class="content">
 
-        <div class="kicker">
-            Let me tell you something
-        </div>
+        <div class="small">Since the day our story began</div>
 
         <h2>
-            Do you know<br>
-            why I love you?
+            <span class="highlight">24 July 2026</span>
         </h2>
 
-        <p>
-            Tap any little heart below...
+        <p class="subtitle">
+            And somehow, every moment with you
+            feels like something I want to keep forever. ❤️
         </p>
 
-        <div class="cards">
+        <div class="counter">
 
-            <div class="card reason"
-                 data-title="Your Smile ❤️"
-                 data-text="Your smile has this beautiful way of making everything around me feel lighter.">
-                <div class="emoji">😊</div>
-                <strong>Your Smile</strong>
-                <small>tap me</small>
+            <div class="counter-card">
+                <strong id="relDays">0</strong>
+                <span>Days</span>
             </div>
 
-            <div class="card reason"
-                 data-title="Your Heart 💗"
-                 data-text="You have such a beautiful heart. The way you care makes you incredibly special to me.">
-                <div class="emoji">💗</div>
-                <strong>Your Heart</strong>
-                <small>tap me</small>
+            <div class="counter-card">
+                <strong id="relHours">0</strong>
+                <span>Hours</span>
             </div>
 
-            <div class="card reason"
-                 data-title="Your Energy ✨"
-                 data-text="You bring a special kind of energy into my life. Somehow everything feels more alive with you.">
-                <div class="emoji">✨</div>
-                <strong>Your Energy</strong>
-                <small>tap me</small>
+            <div class="counter-card">
+                <strong id="relMinutes">0</strong>
+                <span>Minutes</span>
             </div>
 
-            <div class="card reason"
-                 data-title="Just You ❤️"
-                 data-text="Honestly, I could make a hundred lists and still not explain everything I love about you.">
-                <div class="emoji">🥰</div>
-                <strong>Just You</strong>
-                <small>tap me</small>
+            <div class="counter-card">
+                <strong id="relSeconds">0</strong>
+                <span>Seconds</span>
             </div>
 
         </div>
 
-        <button class="next-btn" aria-label="Continue">
-            💘
-        </button>
+        <p class="subtitle">
+            And I still want
+            <span class="highlight">more...</span>
+            with you. ♾️
+        </p>
 
     </div>
+
+    <div class="next-heart">❤️</div>
 
 </section>
 
 
-<!-- =========================
-     SCENE 5
-========================= -->
+<!-- SCENE 4 -->
 
 <section class="scene" data-scene="4">
 
-    <div class="scene-inner">
+    <div class="content">
 
-        <div class="kicker">
-            The little things
-        </div>
+        <div class="small">There are so many reasons</div>
 
         <h2>
-            It's not just<br>
-            the big things...
+            Why I <span class="highlight">Love You</span> ❤️
         </h2>
 
         <div class="cards">
 
-            <div class="card reason"
-                 data-title="Your Voice 🎧"
-                 data-text="Even an ordinary conversation with you can become my favourite part of the day.">
-                <div class="emoji">🎧</div>
-                <strong>Your Voice</strong>
+            <div class="card"
+                 data-title="Your Smile"
+                 data-text="Your smile has this beautiful way of making everything around me feel a little lighter.">
+                <span class="emoji">😊</span>
+                <p>Your smile</p>
             </div>
 
-            <div class="card reason"
-                 data-title="Your Messages 💌"
-                 data-text="That little notification from you can instantly change my mood.">
-                <div class="emoji">💌</div>
-                <strong>Your Messages</strong>
+            <div class="card"
+                 data-title="Your Heart"
+                 data-text="The way you care, love and give your heart so genuinely is one of the most beautiful things about you.">
+                <span class="emoji">❤️</span>
+                <p>Your heart</p>
             </div>
 
-            <div class="card reason"
-                 data-title="Your Presence 🌹"
-                 data-text="You don't even have to do anything. Just knowing you're there feels comforting.">
-                <div class="emoji">🌹</div>
-                <strong>Your Presence</strong>
+            <div class="card"
+                 data-title="Your Energy"
+                 data-text="Your energy makes ordinary moments feel special. You bring life wherever you are.">
+                <span class="emoji">✨</span>
+                <p>Your energy</p>
             </div>
 
-            <div class="card reason"
-                 data-title="Our Moments 🫶"
-                 data-text="Even the smallest moments with you somehow become memories I want to keep forever.">
-                <div class="emoji">🫶</div>
-                <strong>Our Moments</strong>
+            <div class="card"
+                 data-title="Your Craziness"
+                 data-text="I love your cute craziness. The little things that make you completely you.">
+                <span class="emoji">🥰</span>
+                <p>Your craziness</p>
+            </div>
+
+            <div class="card"
+                 data-title="Your Presence"
+                 data-text="Sometimes you don't even need to say anything. Just having you around is enough.">
+                <span class="emoji">🌙</span>
+                <p>Your presence</p>
+            </div>
+
+            <div class="card"
+                 data-title="Just You"
+                 data-text="And honestly... I don't need a reason. I love you simply because you are you.">
+                <span class="emoji">💋</span>
+                <p>Just you</p>
             </div>
 
         </div>
 
-        <button class="next-btn" aria-label="Continue">
-            💝
-        </button>
+        <div class="tap-hint">
+            Tap a card ❤️
+        </div>
 
     </div>
+
+    <div class="next-heart">❤️</div>
 
 </section>
 
 
-<!-- =========================
-     SCENE 6
-========================= -->
+<!-- SCENE 5 -->
 
 <section class="scene" data-scene="5">
 
-    <div class="scene-inner">
+    <div class="content">
 
-        <div class="kicker">
-            A few promises
-        </div>
+        <div class="small">It's the little things</div>
 
         <h2>
-            Tap them...<br>
-            I'll tell you what they mean.
+            The things I secretly
+            <span class="highlight">adore</span>
         </h2>
 
         <div class="cards">
 
-            <div class="promise">
+            <div class="card"
+                 data-title="Your Voice"
+                 data-text="I could listen to you talk for hours. Even the simplest conversations feel special with you.">
+                <span class="emoji">🎧</span>
+                <p>Your voice</p>
+            </div>
 
+            <div class="card"
+                 data-title="Your Laugh"
+                 data-text="Your laugh is one of those sounds I could never get tired of.">
+                <span class="emoji">😂</span>
+                <p>Your laugh</p>
+            </div>
+
+            <div class="card"
+                 data-title="Your Cuteness"
+                 data-text="Sometimes you're just ridiculously cute and you don't even realise it.">
+                <span class="emoji">🥹</span>
+                <p>Your cuteness</p>
+            </div>
+
+            <div class="card"
+                 data-title="Your Hugs"
+                 data-text="If I could keep one feeling forever, it would be the feeling of being close to you.">
+                <span class="emoji">🤗</span>
+                <p>Your hugs</p>
+            </div>
+
+            <div class="card"
+                 data-title="Our Talks"
+                 data-text="I love the conversations that somehow make hours disappear.">
+                <span class="emoji">💬</span>
+                <p>Our talks</p>
+            </div>
+
+            <div class="card"
+                 data-title="Us"
+                 data-text="Most of all, I love the little world that exists whenever it's just you and me.">
+                <span class="emoji">💞</span>
+                <p>Our little world</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="next-heart">❤️</div>
+
+</section>
+
+
+<!-- SCENE 6 -->
+
+<section class="scene" data-scene="6">
+
+    <div class="content">
+
+        <div class="small">Tap each heart</div>
+
+        <h2>
+            My <span class="highlight">Promises</span> to You ❤️
+        </h2>
+
+        <div class="promise-grid">
+
+            <div class="promise">
                 <div class="promise-inner">
 
                     <div class="promise-front">
-                        <strong>❤️ I Promise</strong>
+                        ❤️
                     </div>
 
                     <div class="promise-back">
-                        I'll always make space for you in my heart.
+                        I'll always try to make you feel loved, valued and wanted.
                     </div>
 
                 </div>
-
             </div>
 
             <div class="promise">
-
                 <div class="promise-inner">
 
                     <div class="promise-front">
-                        <strong>🌹 I Promise</strong>
+                        💕
+                    </div>
+
+                    <div class="promise-back">
+                        I'll be there for the beautiful days and the difficult ones too.
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="promise">
+                <div class="promise-inner">
+
+                    <div class="promise-front">
+                        🌙
+                    </div>
+
+                    <div class="promise-back">
+                        I'll always make space for your dreams, your feelings and your happiness.
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="promise">
+                <div class="promise-inner">
+
+                    <div class="promise-front">
+                        🫶
                     </div>
 
                     <div class="promise-back">
@@ -1129,224 +1352,183 @@ p {
                     </div>
 
                 </div>
-
             </div>
 
             <div class="promise">
-
                 <div class="promise-inner">
 
                     <div class="promise-front">
-                        <strong>🫶 I Promise</strong>
+                        💋
                     </div>
 
                     <div class="promise-back">
-                        I'll listen, understand and stand beside you.
+                        I'll never stop finding little reasons to make you smile.
                     </div>
 
                 </div>
-
             </div>
 
             <div class="promise">
-
                 <div class="promise-inner">
 
                     <div class="promise-front">
-                        <strong>♾️ I Promise</strong>
+                        ♾️
                     </div>
 
                     <div class="promise-back">
-                        I'll always want more beautiful chapters with you.
+                        And my biggest promise... I want us to keep growing together, for a very, very long time.
                     </div>
 
                 </div>
-
             </div>
 
         </div>
 
-        <button class="next-btn" aria-label="Continue">
-            💗
-        </button>
-
     </div>
+
+    <div class="next-heart">❤️</div>
 
 </section>
 
 
-<!-- =========================
-     SCENE 7
-========================= -->
-
-<section class="scene" data-scene="6">
-
-    <div class="scene-inner">
-
-        <div class="kicker">
-            From my heart
-        </div>
-
-        <div class="letter">
-
-            <h2>
-                For My Izzie ❤️
-            </h2>
-
-            <p>
-                Laado, I don't think I can put everything I feel
-                for you into a few words.
-            </p>
-
-            <p>
-                But if I could give you one feeling today,
-                it would be the feeling of knowing how deeply
-                loved and appreciated you are.
-            </p>
-
-            <p>
-                You deserve to feel special.
-                You deserve to feel wanted.
-                You deserve to feel safe.
-                And you deserve to know that someone is
-                genuinely grateful that you're in their life.
-            </p>
-
-            <p>
-                And that someone is me.
-            </p>
-
-            <p>
-                I feel incredibly blessed that our paths crossed,
-                and even more blessed that I get to call you
-                my Izzie, my Laado. ❤️
-            </p>
-
-            <p>
-                I want to keep creating little moments with you,
-                laughing with you, annoying you,
-                caring for you and loving you.
-            </p>
-
-            <p>
-                Not just today.
-                Not just on your birthday.
-                But for all the beautiful days waiting for us.
-            </p>
-
-            <div class="signature">
-                Forever yours,<br>
-                ❤️
-            </div>
-
-        </div>
-
-        <button class="next-btn" aria-label="Continue">
-            💋
-        </button>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     SCENE 8
-========================= -->
+<!-- SCENE 7 -->
 
 <section class="scene" data-scene="7">
 
-    <div class="scene-inner">
+    <div class="content">
 
-        <div class="kicker">
-            One last little secret...
-        </div>
+        <div class="small">For my favourite person</div>
 
         <h2>
-            Touch the heart ❤️
+            For My <span class="highlight">Izzie</span> ❤️
         </h2>
 
-        <p>
-            There's something I really want you to know.
-        </p>
-
-        <div class="secret-heart" id="secretHeart">
-            ❤️
-        </div>
-
-        <div class="secret-message" id="secretMessage">
-
-            <h2 class="pink">
-                You are my favourite person. ❤️
-            </h2>
+        <div class="letter">
 
             <p>
-                And I hope you never forget just how special
-                you are to me.
+                My Laado,
+                <br><br>
+
+                I don't think I will ever be able to put everything
+                I feel for you into words.
+                But if there is one thing I want you to know,
+                it's this:
+                <br><br>
+
+                <span class="highlight">
+                I feel incredibly blessed to have you in my life.
+                </span>
+                ❤️
+                <br><br>
+
+                You have become such a beautiful part of my world.
+                The little conversations, the laughter,
+                the silly moments, the affection,
+                even the completely random moments...
+                I treasure all of them.
+                <br><br>
+
+                You make my days warmer.
+                You make ordinary moments feel special.
+                And somehow, being with you feels like home.
+                <br><br>
+
+                On your birthday, I don't just wish you happiness.
+                I wish you a life filled with everything your heart deserves.
+                And selfishly...
+                I hope I get to be beside you for as much of it as possible.
+                <br><br>
+
+                I want more memories.
+                More laughter.
+                More late-night talks.
+                More little adventures.
+                More hugs.
+                More kisses.
+                More <span class="highlight">us.</span>
+                <br><br>
+
+                Happy Birthday, my beautiful Laado.
+                <br>
+                You are deeply loved.
+                ❤️
+
             </p>
+
+            <div class="signature">
+                Always yours ❤️
+            </div>
 
         </div>
 
-        <button class="next-btn" id="secretNext" aria-label="Continue">
-            💖
-        </button>
-
     </div>
+
+    <div class="next-heart">❤️</div>
 
 </section>
 
 
-<!-- =========================
-     SCENE 9 FINAL
-========================= -->
+<!-- SCENE 8 -->
 
 <section class="scene" data-scene="8">
 
-    <div class="scene-inner">
+    <div class="content">
 
-        <div id="finalMessage">
+        <div class="small">
+            There's one more thing...
+        </div>
 
-            <div class="big-heart">
-                ❤️
-            </div>
+        <h2>
+            Tap the <span class="highlight">heart</span>
+        </h2>
 
-            <div class="kicker">
-                My favourite girl
-            </div>
+        <div
+            class="secret-heart"
+            id="secretHeart">
+            ❤️
+        </div>
 
-            <div class="final-title">
-                🎂 HAPPY BIRTHDAY 🎂
-            </div>
+        <p class="subtitle" id="secretText">
+            I kept a little secret here for you...
+        </p>
 
-            <div class="love-you">
-                MY LAADO ❤️
-            </div>
+    </div>
 
-            <p>
-                I Love You Laado💋💗
-            </p>
+    <div class="next-heart">❤️</div>
 
-            <div style="
-                font-size:36px;
-                margin:22px 0;
-                animation: heartBeat 1.2s infinite;
-            ">
-                😘💋💋💋❤️‍🔥💋💋💋😘
-            </div>
+</section>
 
-            <p>
-                Happy Birthday to the girl who makes my world
-                feel warmer, happier and complete.
-            </p>
 
-            <p style="
-                margin-top:15px;
-                color:#ff91b2;
-                font-size:18px;
-            ">
-                Today. Tomorrow. Always. ❤️♾️
-            </p>
+<!-- SCENE 9 -->
 
+<section class="scene" data-scene="9">
+
+    <div class="content">
+
+        <div class="small">
+            Today is all about you
+        </div>
+
+        <div class="final-title">
+            🎂 HAPPY BIRTHDAY 🎂
+        </div>
+
+        <div class="i-love-you">
+            I LOVE YOU LAADO ❤️
+        </div>
+
+        <div class="kisses">
+            😘💋💋💋❤️‍🔥💋💋💋😘
+        </div>
+
+        <p class="subtitle">
+            Today. Tomorrow. Always.
+            <br>
+            <span class="highlight">You & Me. ♾️</span>
+        </p>
+
+        <div class="tap-hint">
+            Tap anywhere ❤️
         </div>
 
     </div>
@@ -1354,24 +1536,6 @@ p {
 </section>
 
 </div>
-
-
-<!-- =========================
-     TAP HINT
-========================= -->
-
-<div class="tap-hint" id="tapHint">
-    <span>♡</span>
-    Tap anywhere to continue
-    <span>♡</span>
-</div>
-
-
-<!-- =========================
-     FLOATING ANIMATIONS
-========================= -->
-
-<div class="floating-layer" id="floatingLayer"></div>
 
 
 <!-- =========================
@@ -1382,14 +1546,19 @@ p {
 
     <div class="popup-box">
 
-        <h3 id="popupTitle">
+        <div class="big" id="popupEmoji">
             ❤️
+        </div>
+
+        <h3 id="popupTitle">
+            You
         </h3>
 
         <p id="popupText">
+            You are special.
         </p>
 
-        <button class="popup-close" id="popupClose">
+        <button class="close-popup" id="closePopup">
             Close ❤️
         </button>
 
@@ -1401,181 +1570,289 @@ p {
 <script>
 
 /* =========================================================
-   STORY NAVIGATION
+   MUSIC
 ========================================================= */
 
-const scenes = [...document.querySelectorAll(".scene")];
+const music = document.getElementById("bgMusic");
+const musicButton = document.getElementById("musicButton");
 
-let currentScene = 0;
+let musicStarted = false;
+let musicMuted = false;
 
-let isAnimating = false;
+function startMusic() {
 
-const tapHint = document.getElementById("tapHint");
+    if (musicStarted) return;
 
+    music.volume = 0.65;
 
-function showScene(index) {
+    const promise = music.play();
 
-    if (index < 0 || index >= scenes.length) return;
+    if (promise !== undefined) {
 
-    isAnimating = true;
+        promise
+            .then(() => {
 
-    scenes.forEach((scene, i) => {
+                musicStarted = true;
 
-        scene.classList.toggle(
-            "active",
-            i === index
-        );
+                musicButton.textContent = "🎵";
 
-    });
+            })
+            .catch(() => {
 
-    currentScene = index;
+                /*
+                    Browser blocked playback.
+                    The next user interaction will try again.
+                */
 
-    setTimeout(() => {
-        isAnimating = false;
-    }, 750);
-
-    if (currentScene === scenes.length - 1) {
-
-        tapHint.style.display = "none";
-
-        setTimeout(() => {
-
-            document
-                .getElementById("finalMessage")
-                .classList.add("show");
-
-            heartExplosion();
-
-        }, 700);
-
-    } else {
-
-        tapHint.style.display = "block";
+            });
 
     }
 
-    createBurst(
-        window.innerWidth / 2,
-        window.innerHeight / 2,
-        12
-    );
 }
 
+function tryStartMusic() {
+
+    if (!musicStarted) {
+        startMusic();
+    }
+
+}
+
+musicButton.addEventListener("click", function(event) {
+
+    event.stopPropagation();
+
+    if (!musicStarted) {
+
+        startMusic();
+
+        return;
+
+    }
+
+    musicMuted = !musicMuted;
+
+    music.muted = musicMuted;
+
+    musicButton.textContent =
+        musicMuted ? "🔇" : "🎵";
+
+});
+
+
+/* =========================================================
+   SCENES
+========================================================= */
+
+const scenes =
+    Array.from(document.querySelectorAll(".scene"));
+
+let currentScene = 0;
+
+let isTransitioning = false;
+
+function showScene(index) {
+
+    if (index < 0) {
+        index = 0;
+    }
+
+    if (index >= scenes.length) {
+        index = scenes.length - 1;
+    }
+
+    if (index === currentScene) {
+        return;
+    }
+
+    scenes[currentScene].classList.remove("active");
+
+    currentScene = index;
+
+    scenes[currentScene].classList.add("active");
+
+    createSceneMagic();
+
+    if (currentScene === scenes.length - 1) {
+
+        setTimeout(() => {
+
+            finalExplosion();
+
+        }, 450);
+
+    }
+
+}
 
 function nextScene() {
 
-    if (isAnimating) return;
+    tryStartMusic();
 
     if (currentScene < scenes.length - 1) {
 
         showScene(currentScene + 1);
 
+    } else {
+
+        finalExplosion();
+
     }
 
 }
 
 
 /* =========================================================
-   TAP ANYWHERE
-========================================================= */
-
-document.addEventListener(
-    "click",
-    function(e) {
-
-        if (
-            e.target.closest(".next-btn") ||
-            e.target.closest(".card") ||
-            e.target.closest(".promise") ||
-            e.target.closest(".secret-heart") ||
-            e.target.closest(".popup") ||
-            e.target.closest("button")
-        ) {
-            return;
-        }
-
-        nextScene();
-
-    },
-    { passive: true }
-);
-
-
-/* =========================================================
-   MOBILE TOUCH SUPPORT
-   This fixes the GitHub Pages mobile tap issue.
+   TAP / CLICK NAVIGATION
 ========================================================= */
 
 let touchStartX = 0;
 let touchStartY = 0;
 
-document.addEventListener(
-    "touchstart",
-    function(e) {
+document.addEventListener("touchstart", function(e) {
 
-        if (!e.touches.length) return;
+    if (!e.touches || !e.touches[0]) {
+        return;
+    }
 
-        touchStartX = e.touches[0].clientX;
-        touchStartY = e.touches[0].clientY;
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
 
-    },
-    { passive: true }
-);
-
-
-document.addEventListener(
-    "touchend",
-    function(e) {
-
-        if (!e.changedTouches.length) return;
-
-        const x = e.changedTouches[0].clientX;
-        const y = e.changedTouches[0].clientY;
-
-        const dx = Math.abs(x - touchStartX);
-        const dy = Math.abs(y - touchStartY);
-
-        /* Only treat it as a tap,
-           NOT a swipe */
-
-        if (dx < 20 && dy < 20) {
-
-            const target = e.target;
-
-            if (
-                target.closest(".next-btn") ||
-                target.closest(".card") ||
-                target.closest(".promise") ||
-                target.closest(".secret-heart") ||
-                target.closest(".popup") ||
-                target.closest("button")
-            ) {
-                return;
-            }
-
-            nextScene();
-
-        }
-
-    },
-    { passive: true }
-);
+}, {
+    passive: true
+});
 
 
-/* =========================================================
-   NEXT BUTTONS
-========================================================= */
+document.addEventListener("touchend", function(e) {
 
-document.querySelectorAll(".next-btn").forEach(btn => {
+    if (!e.changedTouches || !e.changedTouches[0]) {
+        return;
+    }
 
-    btn.addEventListener("click", function(e) {
+    const x = e.changedTouches[0].clientX;
+    const y = e.changedTouches[0].clientY;
 
-        e.stopPropagation();
+    const dx = Math.abs(x - touchStartX);
+    const dy = Math.abs(y - touchStartY);
+
+    /*
+       If the finger moved significantly,
+       treat it as a swipe and don't change scene.
+    */
+
+    if (dx > 25 || dy > 25) {
+        return;
+    }
+
+    const target = e.target;
+
+    /*
+       Don't navigate when interacting with
+       cards, popup buttons, music button etc.
+    */
+
+    if (
+        target.closest(".card") ||
+        target.closest(".promise") ||
+        target.closest(".secret-heart") ||
+        target.closest(".popup-box") ||
+        target.closest(".music-btn")
+    ) {
+        return;
+    }
+
+    nextScene();
+
+}, {
+    passive: true
+});
+
+
+/* Desktop click */
+
+document.addEventListener("click", function(e) {
+
+    tryStartMusic();
+
+    const target = e.target;
+
+    if (
+        target.closest(".card") ||
+        target.closest(".promise") ||
+        target.closest(".secret-heart") ||
+        target.closest(".popup-box") ||
+        target.closest(".music-btn")
+    ) {
+        return;
+    }
+
+    /*
+       Avoid double handling on mobile.
+       Normal desktop clicks still work.
+    */
+
+    if (window.matchMedia("(pointer:fine)").matches) {
 
         nextScene();
 
-    });
+    }
 
+});
+
+
+/* =========================================================
+   KEYBOARD
+========================================================= */
+
+document.addEventListener("keydown", function(e) {
+
+    if (
+        e.key === " " ||
+        e.key === "Enter" ||
+        e.key === "ArrowRight"
+    ) {
+
+        e.preventDefault();
+
+        nextScene();
+
+    }
+
+    if (e.key === "ArrowLeft") {
+
+        e.preventDefault();
+
+        if (currentScene > 0) {
+            showScene(currentScene - 1);
+        }
+
+    }
+
+});
+
+
+/* =========================================================
+   PREVENT SCROLL
+========================================================= */
+
+document.addEventListener("wheel", function(e) {
+
+    e.preventDefault();
+
+}, {
+    passive: false
+});
+
+document.addEventListener("touchmove", function(e) {
+
+    /*
+       Keep the cinematic screen fixed.
+    */
+
+    e.preventDefault();
+
+}, {
+    passive: false
 });
 
 
@@ -1583,56 +1860,55 @@ document.querySelectorAll(".next-btn").forEach(btn => {
    COUNTDOWN
 ========================================================= */
 
-const birthday =
+const birthdayDate =
     new Date("2026-10-18T00:00:00+05:30");
 
-
-function updateBirthdayCountdown() {
+function updateCountdown() {
 
     const now = new Date();
 
-    let diff = birthday - now;
+    let diff =
+        birthdayDate.getTime() - now.getTime();
 
-    if (diff < 0) diff = 0;
+    if (diff < 0) {
+        diff = 0;
+    }
 
     const days =
-        Math.floor(diff / 86400000);
+        Math.floor(diff / (1000 * 60 * 60 * 24));
 
     const hours =
         Math.floor(
-            (diff % 86400000) / 3600000
+            (diff / (1000 * 60 * 60)) % 24
         );
 
     const minutes =
         Math.floor(
-            (diff % 3600000) / 60000
+            (diff / (1000 * 60)) % 60
         );
 
     const seconds =
         Math.floor(
-            (diff % 60000) / 1000
+            (diff / 1000) % 60
         );
 
     document.getElementById("days").textContent =
-        days;
+        String(days).padStart(2, "0");
 
     document.getElementById("hours").textContent =
-        hours;
+        String(hours).padStart(2, "0");
 
     document.getElementById("minutes").textContent =
-        minutes;
+        String(minutes).padStart(2, "0");
 
     document.getElementById("seconds").textContent =
-        seconds;
+        String(seconds).padStart(2, "0");
 
 }
 
-setInterval(
-    updateBirthdayCountdown,
-    1000
-);
+updateCountdown();
 
-updateBirthdayCountdown();
+setInterval(updateCountdown, 1000);
 
 
 /* =========================================================
@@ -1642,50 +1918,257 @@ updateBirthdayCountdown();
 const relationshipStart =
     new Date("2026-07-24T00:00:00+05:30");
 
-
 function updateRelationship() {
 
     const now = new Date();
 
     let diff =
-        now - relationshipStart;
+        now.getTime() -
+        relationshipStart.getTime();
 
-    if (diff < 0) diff = 0;
+    if (diff < 0) {
+        diff = 0;
+    }
 
     const days =
-        Math.floor(diff / 86400000);
+        Math.floor(
+            diff / (1000 * 60 * 60 * 24)
+        );
 
     const hours =
         Math.floor(
-            (diff % 86400000) / 3600000
+            (diff / (1000 * 60 * 60)) % 24
         );
 
     const minutes =
         Math.floor(
-            (diff % 3600000) / 60000
+            (diff / (1000 * 60)) % 60
+        );
+
+    const seconds =
+        Math.floor(
+            (diff / 1000) % 60
         );
 
     document.getElementById("relDays").textContent =
         days;
 
     document.getElementById("relHours").textContent =
-        hours;
+        String(hours).padStart(2, "0");
 
     document.getElementById("relMinutes").textContent =
-        minutes;
+        String(minutes).padStart(2, "0");
+
+    document.getElementById("relSeconds").textContent =
+        String(seconds).padStart(2, "0");
 
 }
 
-setInterval(
-    updateRelationship,
-    1000
-);
-
 updateRelationship();
+
+setInterval(updateRelationship, 1000);
 
 
 /* =========================================================
-   LOVE REASON POPUPS
+   FLOATING MAGIC
+========================================================= */
+
+const particleContainer =
+    document.getElementById("particles");
+
+const floatingEmojis = [
+    "❤️",
+    "💕",
+    "💖",
+    "💗",
+    "💓",
+    "💞",
+    "💋",
+    "😘",
+    "🌹",
+    "✨",
+    "🥰",
+    "🫶",
+    "⭐"
+];
+
+function createFloatingParticle() {
+
+    const el =
+        document.createElement("div");
+
+    el.className = "float";
+
+    el.textContent =
+        floatingEmojis[
+            Math.floor(
+                Math.random() *
+                floatingEmojis.length
+            )
+        ];
+
+    const size =
+        14 + Math.random() * 25;
+
+    const duration =
+        5 + Math.random() * 7;
+
+    const left =
+        Math.random() * 100;
+
+    const drift =
+        (-80 + Math.random() * 160) + "px";
+
+    const rotate =
+        (-180 + Math.random() * 360) + "deg";
+
+    el.style.left =
+        left + "%";
+
+    el.style.fontSize =
+        size + "px";
+
+    el.style.animationDuration =
+        duration + "s";
+
+    el.style.setProperty(
+        "--drift",
+        drift
+    );
+
+    el.style.setProperty(
+        "--rotate",
+        rotate
+    );
+
+    particleContainer.appendChild(el);
+
+    setTimeout(() => {
+
+        el.remove();
+
+    }, duration * 1000 + 500);
+
+}
+
+
+/* Constant ambient animation */
+
+setInterval(() => {
+
+    createFloatingParticle();
+
+}, 450);
+
+
+/* =========================================================
+   SCENE MAGIC
+========================================================= */
+
+function createSceneMagic() {
+
+    for (let i = 0; i < 10; i++) {
+
+        setTimeout(() => {
+
+            createFloatingParticle();
+
+        }, i * 80);
+
+    }
+
+}
+
+
+/* =========================================================
+   CLICK BURST
+========================================================= */
+
+function clickBurst(x, y) {
+
+    const emojis = [
+        "❤️",
+        "💕",
+        "💋",
+        "✨",
+        "😘"
+    ];
+
+    for (let i = 0; i < 8; i++) {
+
+        const el =
+            document.createElement("div");
+
+        el.className = "burst";
+
+        el.textContent =
+            emojis[
+                Math.floor(
+                    Math.random() *
+                    emojis.length
+                )
+            ];
+
+        el.style.left =
+            x + "px";
+
+        el.style.top =
+            y + "px";
+
+        const angle =
+            Math.random() *
+            Math.PI *
+            2;
+
+        const distance =
+            40 +
+            Math.random() *
+            100;
+
+        el.style.setProperty(
+            "--x",
+            Math.cos(angle) * distance + "px"
+        );
+
+        el.style.setProperty(
+            "--y",
+            Math.sin(angle) * distance + "px"
+        );
+
+        document.body.appendChild(el);
+
+        setTimeout(() => {
+
+            el.remove();
+
+        }, 1000);
+
+    }
+
+}
+
+
+document.addEventListener("click", function(e) {
+
+    if (
+        e.target.closest(".popup-box") ||
+        e.target.closest(".card") ||
+        e.target.closest(".promise") ||
+        e.target.closest(".music-btn")
+    ) {
+        return;
+    }
+
+    clickBurst(
+        e.clientX,
+        e.clientY
+    );
+
+});
+
+
+/* =========================================================
+   LOVE CARDS
 ========================================================= */
 
 const popup =
@@ -1697,36 +2180,49 @@ const popupTitle =
 const popupText =
     document.getElementById("popupText");
 
-const popupClose =
-    document.getElementById("popupClose");
+const popupEmoji =
+    document.getElementById("popupEmoji");
+
+const closePopup =
+    document.getElementById("closePopup");
 
 
-document.querySelectorAll(".reason").forEach(card => {
+document.querySelectorAll(".card").forEach(card => {
 
     card.addEventListener("click", function(e) {
 
         e.stopPropagation();
 
-        popupTitle.textContent =
+        const title =
             card.dataset.title;
 
-        popupText.textContent =
+        const text =
             card.dataset.text;
+
+        popupTitle.textContent =
+            title;
+
+        popupText.textContent =
+            text;
+
+        const emoji =
+            card.querySelector(".emoji");
+
+        popupEmoji.textContent =
+            emoji
+                ? emoji.textContent
+                : "❤️";
 
         popup.classList.add("show");
 
-        createBurst(
-            e.clientX || window.innerWidth / 2,
-            e.clientY || window.innerHeight / 2,
-            15
-        );
+        createPopupBurst();
 
     });
 
 });
 
 
-popupClose.addEventListener("click", function(e) {
+closePopup.addEventListener("click", function(e) {
 
     e.stopPropagation();
 
@@ -1746,22 +2242,39 @@ popup.addEventListener("click", function(e) {
 });
 
 
+function createPopupBurst() {
+
+    for (let i = 0; i < 12; i++) {
+
+        setTimeout(() => {
+
+            createFloatingParticle();
+
+        }, i * 50);
+
+    }
+
+}
+
+
 /* =========================================================
-   PROMISE FLIP
+   PROMISE FLIPS
 ========================================================= */
 
-document.querySelectorAll(".promise").forEach(card => {
+document.querySelectorAll(".promise").forEach(promise => {
 
-    card.addEventListener("click", function(e) {
+    promise.addEventListener("click", function(e) {
 
         e.stopPropagation();
 
-        card.classList.toggle("flipped");
+        promise.classList.toggle("flipped");
 
-        createBurst(
-            e.clientX,
-            e.clientY,
-            10
+        const rect =
+            promise.getBoundingClientRect();
+
+        clickBurst(
+            rect.left + rect.width / 2,
+            rect.top + rect.height / 2
         );
 
     });
@@ -1776,490 +2289,366 @@ document.querySelectorAll(".promise").forEach(card => {
 const secretHeart =
     document.getElementById("secretHeart");
 
-const secretMessage =
-    document.getElementById("secretMessage");
+const secretText =
+    document.getElementById("secretText");
 
+let secretOpened = false;
 
 secretHeart.addEventListener("click", function(e) {
 
     e.stopPropagation();
 
-    secretMessage.classList.add("show");
+    if (secretOpened) {
+        return;
+    }
 
-    heartBurstAt(
-        e.clientX,
-        e.clientY
-    );
+    secretOpened = true;
 
-});
+    secretHeart.textContent = "💖";
 
+    secretHeart.style.transform =
+        "scale(1.25)";
 
-document
-    .getElementById("secretNext")
-    .addEventListener("click", function(e) {
+    secretText.innerHTML =
+        `
+        <span class="highlight">
+        My secret is simple...
+        </span>
+        <br><br>
+        I don't just want beautiful moments with you.
+        <br>
+        I want a beautiful life full of them.
+        <br><br>
+        <span class="highlight">
+        With you. ❤️♾️
+        </span>
+        `;
 
-        e.stopPropagation();
-
-        nextScene();
-
-    });
-
-
-/* =========================================================
-   RANDOM FLOATING LOVE ANIMATIONS
-========================================================= */
-
-const floatingLayer =
-    document.getElementById("floatingLayer");
-
-
-const loveSymbols = [
-    "❤️",
-    "💕",
-    "💖",
-    "💗",
-    "💘",
-    "💝",
-    "❤️‍🔥",
-    "💋",
-    "😘",
-    "✨",
-    "🌹",
-    "🥰",
-    "🫶"
-];
-
-
-function createFloatingLove() {
-
-    const item =
-        document.createElement("div");
-
-    item.className =
-        "float-item";
-
-    item.textContent =
-        loveSymbols[
-            Math.floor(
-                Math.random() *
-                loveSymbols.length
-            )
-        ];
-
-    item.style.left =
-        Math.random() * 100 + "%";
-
-    item.style.fontSize =
-        (14 + Math.random() * 25) + "px";
-
-    const duration =
-        5 + Math.random() * 6;
-
-    item.style.animationDuration =
-        duration + "s";
-
-    floatingLayer.appendChild(item);
-
-    setTimeout(() => {
-
-        item.remove();
-
-    }, duration * 1000);
-
-}
-
-
-setInterval(
-    createFloatingLove,
-    500
-);
-
-
-/* =========================================================
-   RANDOM SPARKLES
-========================================================= */
-
-function createSparkle() {
-
-    const sparkle =
-        document.createElement("div");
-
-    sparkle.className =
-        "sparkle";
-
-    sparkle.style.left =
-        Math.random() * 100 + "%";
-
-    sparkle.style.top =
-        Math.random() * 100 + "%";
-
-    document.body.appendChild(
-        sparkle
-    );
-
-    setTimeout(() => {
-
-        sparkle.remove();
-
-    }, 1800);
-
-}
-
-
-setInterval(
-    createSparkle,
-    700
-);
-
-
-/* =========================================================
-   CLICK BURST
-========================================================= */
-
-function createBurst(x, y, amount = 12) {
-
-    for (let i = 0; i < amount; i++) {
-
-        const item =
-            document.createElement("div");
-
-        item.textContent =
-            loveSymbols[
-                Math.floor(
-                    Math.random() *
-                    loveSymbols.length
-                )
-            ];
-
-        item.style.position =
-            "fixed";
-
-        item.style.left =
-            x + "px";
-
-        item.style.top =
-            y + "px";
-
-        item.style.fontSize =
-            (14 + Math.random() * 20) + "px";
-
-        item.style.pointerEvents =
-            "none";
-
-        item.style.zIndex =
-            "400";
-
-        item.style.transition =
-            "1s ease";
-
-        document.body.appendChild(
-            item
-        );
-
-        const angle =
-            Math.random() *
-            Math.PI * 2;
-
-        const distance =
-            40 + Math.random() * 100;
-
-        requestAnimationFrame(() => {
-
-            item.style.transform =
-                `translate(
-                    ${Math.cos(angle) * distance}px,
-                    ${Math.sin(angle) * distance}px
-                ) scale(.3)`;
-
-            item.style.opacity =
-                "0";
-
-        });
+    for (let i = 0; i < 30; i++) {
 
         setTimeout(() => {
 
-            item.remove();
+            createFloatingParticle();
 
-        }, 1100);
+        }, i * 35);
 
     }
 
-}
+    setTimeout(() => {
 
+        secretHeart.style.transform =
+            "scale(1)";
 
-/* =========================================================
-   HEART BURST
-========================================================= */
+    }, 600);
 
-function heartBurstAt(x, y) {
-
-    createBurst(
-        x,
-        y,
-        35
-    );
-
-}
+});
 
 
 /* =========================================================
    FINAL HEART EXPLOSION
 ========================================================= */
 
-function heartExplosion() {
+let finalExploded = false;
 
-    const centerX =
-        window.innerWidth / 2;
+function finalExplosion() {
 
-    const centerY =
-        window.innerHeight / 2;
+    if (finalExploded) {
+        return;
+    }
 
-    const big =
+    finalExploded = true;
+
+    const explosion =
         document.createElement("div");
 
-    big.className =
-        "blast-heart";
+    explosion.className =
+        "explosion";
 
-    big.textContent =
-        "❤️";
+    document.body.appendChild(explosion);
 
-    document.body.appendChild(big);
+    const explosionEmojis = [
+        "❤️",
+        "💖",
+        "💕",
+        "💗",
+        "💋",
+        "😘",
+        "✨",
+        "🌹",
+        "🥰",
+        "🫶"
+    ];
 
-    setTimeout(() => {
-        big.remove();
-    }, 1500);
-
-
-    /* Main explosion */
+    /*
+       First heart wave
+    */
 
     for (let i = 0; i < 140; i++) {
 
-        const item =
+        const heart =
             document.createElement("div");
 
-        item.textContent =
-            loveSymbols[
+        heart.className =
+            "explosion-heart";
+
+        heart.textContent =
+            explosionEmojis[
                 Math.floor(
                     Math.random() *
-                    loveSymbols.length
+                    explosionEmojis.length
                 )
             ];
 
-        item.style.position =
-            "fixed";
-
-        item.style.left =
-            centerX + "px";
-
-        item.style.top =
-            centerY + "px";
-
-        item.style.fontSize =
-            (16 + Math.random() * 35) + "px";
-
-        item.style.pointerEvents =
-            "none";
-
-        item.style.zIndex =
-            "600";
-
-        item.style.transition =
-            "transform 2.2s cubic-bezier(.1,.8,.2,1), opacity 2.2s";
-
-        document.body.appendChild(
-            item
-        );
-
         const angle =
             Math.random() *
-            Math.PI * 2;
+            Math.PI *
+            2;
 
         const distance =
-            120 + Math.random() * 450;
+            100 +
+            Math.random() * 430;
 
-        requestAnimationFrame(() => {
+        const x =
+            Math.cos(angle) *
+            distance;
 
-            item.style.transform =
-                `translate(
-                    ${Math.cos(angle) * distance}px,
-                    ${Math.sin(angle) * distance}px
-                )
-                rotate(${Math.random()*720}deg)
-                scale(${.5 + Math.random()})`;
+        const y =
+            Math.sin(angle) *
+            distance;
 
-            item.style.opacity =
-                "0";
+        const scale =
+            .5 +
+            Math.random() * 1.5;
 
-        });
+        const rotate =
+            (-360 +
+            Math.random() * 720) +
+            "deg";
 
-        setTimeout(() => {
+        heart.style.setProperty(
+            "--ex",
+            x + "px"
+        );
 
-            item.remove();
+        heart.style.setProperty(
+            "--ey",
+            y + "px"
+        );
 
-        }, 2300);
+        heart.style.setProperty(
+            "--scale",
+            scale
+        );
+
+        heart.style.setProperty(
+            "--rot",
+            rotate
+        );
+
+        heart.style.animationDelay =
+            Math.random() * .5 + "s";
+
+        explosion.appendChild(heart);
 
     }
 
 
-    /* Second wave */
+    /*
+       Second kiss wave
+    */
 
     setTimeout(() => {
 
-        for (let i = 0; i < 60; i++) {
+        for (let i = 0; i < 70; i++) {
 
-            const item =
+            const heart =
                 document.createElement("div");
 
-            item.textContent =
+            heart.className =
+                "explosion-heart";
+
+            heart.textContent =
                 Math.random() > .5
                     ? "💋"
                     : "❤️";
 
-            item.style.position =
-                "fixed";
-
-            item.style.left =
-                centerX + "px";
-
-            item.style.top =
-                centerY + "px";
-
-            item.style.fontSize =
-                (20 + Math.random() * 25) + "px";
-
-            item.style.pointerEvents =
-                "none";
-
-            item.style.zIndex =
-                "600";
-
-            item.style.transition =
-                "2s ease";
-
-            document.body.appendChild(
-                item
-            );
-
             const angle =
                 Math.random() *
-                Math.PI * 2;
+                Math.PI *
+                2;
 
             const distance =
-                100 + Math.random() * 350;
+                150 +
+                Math.random() * 500;
 
-            requestAnimationFrame(() => {
+            heart.style.setProperty(
+                "--ex",
+                Math.cos(angle) *
+                distance +
+                "px"
+            );
 
-                item.style.transform =
-                    `translate(
-                        ${Math.cos(angle) * distance}px,
-                        ${Math.sin(angle) * distance}px
-                    )`;
+            heart.style.setProperty(
+                "--ey",
+                Math.sin(angle) *
+                distance +
+                "px"
+            );
 
-                item.style.opacity =
-                    "0";
+            heart.style.setProperty(
+                "--scale",
+                .7 +
+                Math.random()
+            );
 
-            });
+            heart.style.setProperty(
+                "--rot",
+                Math.random() *
+                720 +
+                "deg"
+            );
 
-            setTimeout(() => {
-
-                item.remove();
-
-            }, 2100);
+            explosion.appendChild(heart);
 
         }
 
-    }, 800);
+    }, 500);
+
+
+    setTimeout(() => {
+
+        explosion.remove();
+
+        finalExploded = false;
+
+    }, 5000);
 
 }
 
 
 /* =========================================================
-   RANDOM HEART BURSTS DURING STORY
+   FINAL SCENE SPECIAL EFFECT
+========================================================= */
+
+function finalMagic() {
+
+    for (let i = 0; i < 25; i++) {
+
+        setTimeout(() => {
+
+            createFloatingParticle();
+
+        }, i * 80);
+
+    }
+
+}
+
+
+/* =========================================================
+   INITIAL MAGIC
+========================================================= */
+
+for (let i = 0; i < 18; i++) {
+
+    setTimeout(() => {
+
+        createFloatingParticle();
+
+    }, i * 150);
+
+}
+
+
+/* =========================================================
+   PERIODIC ROMANTIC BURSTS
 ========================================================= */
 
 setInterval(() => {
 
+    if (currentScene > 0) {
+
+        for (let i = 0; i < 3; i++) {
+
+            createFloatingParticle();
+
+        }
+
+    }
+
+}, 1800);
+
+
+/* =========================================================
+   SECRET FINAL REPLAY
+========================================================= */
+
+document.addEventListener("click", function(e) {
+
     if (
-        currentScene !== scenes.length - 1 &&
-        Math.random() > .35
+        currentScene === scenes.length - 1 &&
+        !e.target.closest(".music-btn")
     ) {
 
-        createBurst(
-            Math.random() * window.innerWidth,
-            Math.random() * window.innerHeight,
-            3
-        );
+        finalExplosion();
+
+        finalMagic();
 
     }
 
-}, 2500);
+});
 
 
 /* =========================================================
-   KEYBOARD SUPPORT
+   FIRST USER INTERACTION
+   IMPORTANT FOR MOBILE AUDIO
 ========================================================= */
 
+function firstInteraction() {
+
+    tryStartMusic();
+
+    document.removeEventListener(
+        "pointerdown",
+        firstInteraction
+    );
+
+}
+
 document.addEventListener(
-    "keydown",
-    function(e) {
-
-        if (
-            e.key === "ArrowRight" ||
-            e.key === " " ||
-            e.key === "Enter"
-        ) {
-
-            e.preventDefault();
-
-            nextScene();
-
-        }
-
-        if (e.key === "Escape") {
-
-            popup.classList.remove("show");
-
-        }
-
+    "pointerdown",
+    firstInteraction,
+    {
+        passive: true
     }
 );
 
 
 /* =========================================================
-   PREVENT ACCIDENTAL PAGE SCROLL
+   VISIBILITY / AUDIO RECOVERY
 ========================================================= */
 
 document.addEventListener(
-    "wheel",
-    function(e) {
-
-        e.preventDefault();
-
-    },
-    { passive: false }
-);
-
-
-document.addEventListener(
-    "touchmove",
-    function(e) {
-
-        /*
-          Prevent browser page scrolling,
-          while allowing taps.
-        */
+    "visibilitychange",
+    function() {
 
         if (
-            !e.target.closest(".scene-inner")
+            document.visibilityState === "visible" &&
+            musicStarted &&
+            !musicMuted
         ) {
 
-            e.preventDefault();
+            music.play().catch(() => {});
 
         }
 
-    },
-    { passive: false }
+    }
 );
+
+
+/* =========================================================
+   END
+========================================================= */
 
 </script>
 
