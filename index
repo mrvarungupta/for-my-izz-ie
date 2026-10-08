@@ -1,0 +1,2267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>For My Izzie ❤️</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #090308;
+    font-family: Georgia, "Times New Roman", serif;
+    color: #fff;
+}
+
+body {
+    touch-action: manipulation;
+}
+
+/* =========================
+   MAIN STORY
+========================= */
+
+#story {
+    width: 100%;
+    height: 100dvh;
+    position: relative;
+    overflow: hidden;
+}
+
+.scene {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    padding: 30px 22px 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.04);
+    transition:
+        opacity 0.8s ease,
+        transform 0.9s ease,
+        visibility 0.8s;
+    
+    background:
+        radial-gradient(circle at 50% 35%, rgba(255, 70, 130, .15), transparent 35%),
+        radial-gradient(circle at 20% 80%, rgba(255, 20, 100, .08), transparent 30%),
+        linear-gradient(145deg, #090308, #180710 55%, #090308);
+}
+
+.scene.active {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+    z-index: 5;
+}
+
+.scene-inner {
+    width: min(700px, 100%);
+    max-height: 90vh;
+    overflow-y: auto;
+    scrollbar-width: none;
+    padding: 15px;
+}
+
+.scene-inner::-webkit-scrollbar {
+    display: none;
+}
+
+/* =========================
+   TEXT
+========================= */
+
+.kicker {
+    color: #ff9fbd;
+    letter-spacing: 4px;
+    font-size: 12px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    animation: fadeUp 1s ease both;
+}
+
+h1 {
+    font-size: clamp(42px, 11vw, 82px);
+    line-height: .95;
+    margin-bottom: 22px;
+    text-shadow:
+        0 0 12px rgba(255, 80, 140, .5),
+        0 0 35px rgba(255, 30, 100, .25);
+}
+
+h2 {
+    font-size: clamp(30px, 8vw, 56px);
+    line-height: 1.05;
+    margin-bottom: 20px;
+}
+
+p {
+    font-family: Arial, sans-serif;
+    color: #f6dfe8;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+.big-heart {
+    font-size: 80px;
+    display: inline-block;
+    filter: drop-shadow(0 0 18px #ff3f78);
+    animation: heartBeat 1.6s infinite;
+    margin-bottom: 20px;
+}
+
+.glow {
+    color: #ff83aa;
+}
+
+.pink {
+    color: #ff6f9c;
+}
+
+/* =========================
+   TAP AREA
+========================= */
+
+.tap-hint {
+    position: fixed;
+    left: 50%;
+    bottom: 26px;
+    transform: translateX(-50%);
+    z-index: 100;
+
+    color: #ffd9e5;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+
+    padding: 10px 18px;
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 30px;
+
+    background: rgba(255,255,255,.05);
+    backdrop-filter: blur(10px);
+
+    animation:
+        hintPulse 2s infinite,
+        fadeIn 1s ease;
+}
+
+.tap-hint span {
+    display: inline-block;
+    animation: tinyBounce 1.5s infinite;
+}
+
+/* =========================
+   ROMANTIC NEXT BUTTON
+========================= */
+
+.next-btn {
+    border: 0;
+    outline: none;
+    cursor: pointer;
+
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+
+    background:
+        radial-gradient(circle, #ff739d, #e92562);
+
+    color: white;
+    font-size: 25px;
+
+    box-shadow:
+        0 0 20px rgba(255, 60, 120, .5),
+        0 0 50px rgba(255, 60, 120, .2);
+
+    animation: buttonPulse 2s infinite;
+
+    margin-top: 28px;
+}
+
+.next-btn:active {
+    transform: scale(.88);
+}
+
+/* =========================
+   COUNTDOWN
+========================= */
+
+.countdown {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 25px 0;
+    flex-wrap: wrap;
+}
+
+.time-box {
+    min-width: 70px;
+    padding: 14px 10px;
+    border-radius: 18px;
+
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,130,170,.18);
+
+    box-shadow:
+        inset 0 0 20px rgba(255,255,255,.02),
+        0 10px 40px rgba(0,0,0,.25);
+}
+
+.time-box strong {
+    display: block;
+    font-size: 24px;
+    color: #ff8faf;
+}
+
+.time-box span {
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: #d9b7c3;
+}
+
+/* =========================
+   LOVE CARDS
+========================= */
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.card {
+    padding: 20px 12px;
+    min-height: 115px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 22px;
+
+    background: linear-gradient(
+        145deg,
+        rgba(255,255,255,.08),
+        rgba(255,255,255,.025)
+    );
+
+    border: 1px solid rgba(255,130,170,.15);
+
+    transition: .3s ease;
+    cursor: pointer;
+}
+
+.card:active {
+    transform: scale(.95);
+}
+
+.card .emoji {
+    font-size: 34px;
+    margin-bottom: 10px;
+}
+
+.card strong {
+    font-size: 15px;
+}
+
+.card small {
+    margin-top: 7px;
+    color: #d8bac4;
+    font-family: Arial, sans-serif;
+}
+
+/* =========================
+   PROMISE CARDS
+========================= */
+
+.promise {
+    position: relative;
+    min-height: 150px;
+    perspective: 900px;
+    cursor: pointer;
+}
+
+.promise-inner {
+    width: 100%;
+    height: 100%;
+    min-height: 150px;
+    position: relative;
+
+    transition: transform .7s;
+    transform-style: preserve-3d;
+}
+
+.promise.flipped .promise-inner {
+    transform: rotateY(180deg);
+}
+
+.promise-front,
+.promise-back {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+
+    border-radius: 22px;
+
+    backface-visibility: hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,80,130,.12),
+            rgba(255,255,255,.035)
+        );
+
+    border: 1px solid rgba(255,130,170,.15);
+}
+
+.promise-back {
+    transform: rotateY(180deg);
+    color: #ffd9e5;
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+}
+
+/* =========================
+   LETTER
+========================= */
+
+.letter {
+    padding: 25px;
+    border-radius: 28px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.08),
+            rgba(255,80,130,.04)
+        );
+
+    border: 1px solid rgba(255,160,190,.15);
+
+    box-shadow:
+        0 20px 80px rgba(0,0,0,.35);
+
+    text-align: left;
+}
+
+.letter p {
+    margin-bottom: 15px;
+}
+
+.signature {
+    margin-top: 25px;
+    text-align: right;
+    color: #ff89ad;
+    font-size: 22px;
+}
+
+/* =========================
+   SECRET HEART
+========================= */
+
+.secret-heart {
+    width: 125px;
+    height: 125px;
+    border-radius: 50%;
+
+    margin: 35px auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 55px;
+
+    cursor: pointer;
+
+    background:
+        radial-gradient(circle, #ff749e, #c71951);
+
+    box-shadow:
+        0 0 30px rgba(255,60,120,.7),
+        0 0 90px rgba(255,60,120,.3);
+
+    animation:
+        heartBeat 1.5s infinite,
+        float 3s ease-in-out infinite;
+}
+
+.secret-message {
+    opacity: 0;
+    transform: translateY(15px);
+    transition: .7s ease;
+    pointer-events: none;
+}
+
+.secret-message.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* =========================
+   FINAL
+========================= */
+
+#finalMessage {
+    opacity: 0;
+    transform: scale(.7);
+    transition: 1s ease;
+}
+
+#finalMessage.show {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.final-title {
+    font-size: clamp(30px, 8vw, 65px);
+    color: #ff89ad;
+    text-shadow:
+        0 0 15px #ff3f78,
+        0 0 45px rgba(255,40,100,.5);
+}
+
+.love-you {
+    font-size: clamp(35px, 9vw, 72px);
+    font-weight: bold;
+    margin: 18px 0;
+
+    background: linear-gradient(
+        90deg,
+        #fff,
+        #ff82aa,
+        #fff,
+        #ff5d91
+    );
+
+    background-size: 300%;
+    -webkit-background-clip: text;
+    color: transparent;
+
+    animation: gradientMove 3s infinite linear;
+}
+
+/* =========================
+   FLOATING PARTICLES
+========================= */
+
+.floating-layer {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 20;
+}
+
+.float-item {
+    position: absolute;
+    bottom: -60px;
+
+    font-size: 20px;
+
+    animation:
+        floatUp linear forwards;
+
+    opacity: 0;
+}
+
+/* =========================
+   SPARKLES
+========================= */
+
+.sparkle {
+    position: fixed;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+
+    background: white;
+
+    pointer-events: none;
+    z-index: 10;
+
+    box-shadow:
+        0 0 8px white,
+        0 0 20px #ff75a0;
+
+    animation: sparkleAnim 1.8s ease-out forwards;
+}
+
+/* =========================
+   POPUP
+========================= */
+
+.popup {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 25px;
+
+    background: rgba(0,0,0,.65);
+    backdrop-filter: blur(12px);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: .35s ease;
+}
+
+.popup.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.popup-box {
+    max-width: 420px;
+    width: 100%;
+
+    padding: 30px;
+
+    border-radius: 28px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #28101a,
+            #13070d
+        );
+
+    border: 1px solid rgba(255,130,170,.25);
+
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.7);
+
+    transform: scale(.8);
+    transition: .4s ease;
+}
+
+.popup.show .popup-box {
+    transform: scale(1);
+}
+
+.popup-box h3 {
+    font-size: 28px;
+    margin-bottom: 15px;
+    color: #ff91b2;
+}
+
+.popup-close {
+    margin-top: 20px;
+
+    border: 0;
+    padding: 12px 25px;
+    border-radius: 30px;
+
+    background: #f04478;
+    color: white;
+
+    cursor: pointer;
+}
+
+/* =========================
+   HEART BLAST
+========================= */
+
+.blast-heart {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%)
+        scale(.1);
+
+    font-size: 100px;
+
+    z-index: 500;
+    pointer-events: none;
+
+    opacity: 0;
+
+    animation: blastHeart 1.4s ease forwards;
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes heartBeat {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.13); }
+}
+
+@keyframes buttonPulse {
+    0%,100% {
+        box-shadow:
+            0 0 20px rgba(255,60,120,.5),
+            0 0 50px rgba(255,60,120,.2);
+    }
+    50% {
+        box-shadow:
+            0 0 30px rgba(255,60,120,.8),
+            0 0 80px rgba(255,60,120,.35);
+    }
+}
+
+@keyframes hintPulse {
+    0%,100% {
+        opacity: .55;
+        transform: translateX(-50%);
+    }
+    50% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-5px);
+    }
+}
+
+@keyframes tinyBounce {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+}
+
+@keyframes floatUp {
+    0% {
+        transform:
+            translateY(0)
+            translateX(0)
+            rotate(0deg)
+            scale(.7);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    50% {
+        transform:
+            translateY(-50vh)
+            translateX(30px)
+            rotate(20deg)
+            scale(1);
+    }
+
+    100% {
+        transform:
+            translateY(-115vh)
+            translateX(-40px)
+            rotate(-20deg)
+            scale(1.2);
+        opacity: 0;
+    }
+}
+
+@keyframes sparkleAnim {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    40% {
+        transform: scale(1.5);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+@keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0%; }
+    100% { background-position: 300%; }
+}
+
+@keyframes blastHeart {
+    0% {
+        opacity: 0;
+        transform:
+            translate(-50%,-50%)
+            scale(.1);
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    60% {
+        opacity: 1;
+        transform:
+            translate(-50%,-50%)
+            scale(2);
+    }
+
+    100% {
+        opacity: 0;
+        transform:
+            translate(-50%,-50%)
+            scale(3.5);
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width: 600px) {
+
+    .scene {
+        padding: 20px 16px 85px;
+    }
+
+    .scene-inner {
+        padding: 8px;
+        max-height: 91vh;
+    }
+
+    p {
+        font-size: 15px;
+    }
+
+    .cards {
+        gap: 9px;
+    }
+
+    .card {
+        min-height: 105px;
+        padding: 15px 8px;
+    }
+
+    .card .emoji {
+        font-size: 28px;
+    }
+
+    .time-box {
+        min-width: 62px;
+        padding: 11px 7px;
+    }
+
+    .time-box strong {
+        font-size: 21px;
+    }
+
+    .tap-hint {
+        bottom: 18px;
+        font-size: 10px;
+        padding: 9px 15px;
+    }
+
+    .next-btn {
+        width: 56px;
+        height: 56px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="story">
+
+<!-- =========================
+     SCENE 1
+========================= -->
+
+<section class="scene active" data-scene="0">
+
+    <div class="scene-inner">
+
+        <div class="big-heart">❤️</div>
+
+        <div class="kicker">
+            A little surprise for you
+        </div>
+
+        <h1>
+            Hey,<br>
+            <span class="glow">Izzie…</span>
+        </h1>
+
+        <p>
+            Before you read anything else...
+            I just want you to know that this little world
+            was made with one person in mind.
+        </p>
+
+        <button class="next-btn" aria-label="Continue">
+            💗
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SCENE 2
+========================= -->
+
+<section class="scene" data-scene="1">
+
+    <div class="scene-inner">
+
+        <div class="kicker">
+            18 October 2026
+        </div>
+
+        <h2>
+            Happy Birthday,<br>
+            <span class="pink">My Laado ❤️</span>
+        </h2>
+
+        <p>
+            Today isn't just another date on the calendar.
+            It's the day the world became a little more beautiful
+            because you were born.
+        </p>
+
+        <div class="countdown">
+
+            <div class="time-box">
+                <strong id="days">0</strong>
+                <span>DAYS</span>
+            </div>
+
+            <div class="time-box">
+                <strong id="hours">0</strong>
+                <span>HOURS</span>
+            </div>
+
+            <div class="time-box">
+                <strong id="minutes">0</strong>
+                <span>MINUTES</span>
+            </div>
+
+            <div class="time-box">
+                <strong id="seconds">0</strong>
+                <span>SECONDS</span>
+            </div>
+
+        </div>
+
+        <button class="next-btn" aria-label="Continue">
+            💕
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SCENE 3
+========================= -->
+
+<section class="scene" data-scene="2">
+
+    <div class="scene-inner">
+
+        <div class="kicker">
+            Since 24 July 2026
+        </div>
+
+        <h2>
+            And somehow...
+        </h2>
+
+        <p>
+            Since the day our story began,
+            you've slowly become one of the most
+            beautiful parts of my everyday life.
+        </p>
+
+        <div class="countdown">
+
+            <div class="time-box">
+                <strong id="relDays">0</strong>
+                <span>DAYS</span>
+            </div>
+
+            <div class="time-box">
+                <strong id="relHours">0</strong>
+                <span>HOURS</span>
+            </div>
+
+            <div class="time-box">
+                <strong id="relMinutes">0</strong>
+                <span>MINUTES</span>
+            </div>
+
+        </div>
+
+        <p class="pink">
+            And I wouldn't trade this feeling for anything. ❤️
+        </p>
+
+        <button class="next-btn" aria-label="Continue">
+            💖
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SCENE 4
+========================= -->
+
+<section class="scene" data-scene="3">
+
+    <div class="scene-inner">
+
+        <div class="kicker">
+            Let me tell you something
+        </div>
+
+        <h2>
+            Do you know<br>
+            why I love you?
+        </h2>
+
+        <p>
+            Tap any little heart below...
+        </p>
+
+        <div class="cards">
+
+            <div class="card reason"
+                 data-title="Your Smile ❤️"
+                 data-text="Your smile has this beautiful way of making everything around me feel lighter.">
+                <div class="emoji">😊</div>
+                <strong>Your Smile</strong>
+                <small>tap me</small>
+            </div>
+
+            <div class="card reason"
+                 data-title="Your Heart 💗"
+                 data-text="You have such a beautiful heart. The way you care makes you incredibly special to me.">
+                <div class="emoji">💗</div>
+                <strong>Your Heart</strong>
+                <small>tap me</small>
+            </div>
+
+            <div class="card reason"
+                 data-title="Your Energy ✨"
+                 data-text="You bring a special kind of energy into my life. Somehow everything feels more alive with you.">
+                <div class="emoji">✨</div>
+                <strong>Your Energy</strong>
+                <small>tap me</small>
+            </div>
+
+            <div class="card reason"
+                 data-title="Just You ❤️"
+                 data-text="Honestly, I could make a hundred lists and still not explain everything I love about you.">
+                <div class="emoji">🥰</div>
+                <strong>Just You</strong>
+                <small>tap me</small>
+            </div>
+
+        </div>
+
+        <button class="next-btn" aria-label="Continue">
+            💘
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SCENE 5
+========================= -->
+
+<section class="scene" data-scene="4">
+
+    <div class="scene-inner">
+
+        <div class="kicker">
+            The little things
+        </div>
+
+        <h2>
+            It's not just<br>
+            the big things...
+        </h2>
+
+        <div class="cards">
+
+            <div class="card reason"
+                 data-title="Your Voice 🎧"
+                 data-text="Even an ordinary conversation with you can become my favourite part of the day.">
+                <div class="emoji">🎧</div>
+                <strong>Your Voice</strong>
+            </div>
+
+            <div class="card reason"
+                 data-title="Your Messages 💌"
+                 data-text="That little notification from you can instantly change my mood.">
+                <div class="emoji">💌</div>
+                <strong>Your Messages</strong>
+            </div>
+
+            <div class="card reason"
+                 data-title="Your Presence 🌹"
+                 data-text="You don't even have to do anything. Just knowing you're there feels comforting.">
+                <div class="emoji">🌹</div>
+                <strong>Your Presence</strong>
+            </div>
+
+            <div class="card reason"
+                 data-title="Our Moments 🫶"
+                 data-text="Even the smallest moments with you somehow become memories I want to keep forever.">
+                <div class="emoji">🫶</div>
+                <strong>Our Moments</strong>
+            </div>
+
+        </div>
+
+        <button class="next-btn" aria-label="Continue">
+            💝
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SCENE 6
+========================= -->
+
+<section class="scene" data-scene="5">
+
+    <div class="scene-inner">
+
+        <div class="kicker">
+            A few promises
+        </div>
+
+        <h2>
+            Tap them...<br>
+            I'll tell you what they mean.
+        </h2>
+
+        <div class="cards">
+
+            <div class="promise">
+
+                <div class="promise-inner">
+
+                    <div class="promise-front">
+                        <strong>❤️ I Promise</strong>
+                    </div>
+
+                    <div class="promise-back">
+                        I'll always make space for you in my heart.
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="promise">
+
+                <div class="promise-inner">
+
+                    <div class="promise-front">
+                        <strong>🌹 I Promise</strong>
+                    </div>
+
+                    <div class="promise-back">
+                        I'll keep choosing you, again and again.
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="promise">
+
+                <div class="promise-inner">
+
+                    <div class="promise-front">
+                        <strong>🫶 I Promise</strong>
+                    </div>
+
+                    <div class="promise-back">
+                        I'll listen, understand and stand beside you.
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="promise">
+
+                <div class="promise-inner">
+
+                    <div class="promise-front">
+                        <strong>♾️ I Promise</strong>
+                    </div>
+
+                    <div class="promise-back">
+                        I'll always want more beautiful chapters with you.
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <button class="next-btn" aria-label="Continue">
+            💗
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SCENE 7
+========================= -->
+
+<section class="scene" data-scene="6">
+
+    <div class="scene-inner">
+
+        <div class="kicker">
+            From my heart
+        </div>
+
+        <div class="letter">
+
+            <h2>
+                For My Izzie ❤️
+            </h2>
+
+            <p>
+                Laado, I don't think I can put everything I feel
+                for you into a few words.
+            </p>
+
+            <p>
+                But if I could give you one feeling today,
+                it would be the feeling of knowing how deeply
+                loved and appreciated you are.
+            </p>
+
+            <p>
+                You deserve to feel special.
+                You deserve to feel wanted.
+                You deserve to feel safe.
+                And you deserve to know that someone is
+                genuinely grateful that you're in their life.
+            </p>
+
+            <p>
+                And that someone is me.
+            </p>
+
+            <p>
+                I feel incredibly blessed that our paths crossed,
+                and even more blessed that I get to call you
+                my Izzie, my Laado. ❤️
+            </p>
+
+            <p>
+                I want to keep creating little moments with you,
+                laughing with you, annoying you,
+                caring for you and loving you.
+            </p>
+
+            <p>
+                Not just today.
+                Not just on your birthday.
+                But for all the beautiful days waiting for us.
+            </p>
+
+            <div class="signature">
+                Forever yours,<br>
+                ❤️
+            </div>
+
+        </div>
+
+        <button class="next-btn" aria-label="Continue">
+            💋
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SCENE 8
+========================= -->
+
+<section class="scene" data-scene="7">
+
+    <div class="scene-inner">
+
+        <div class="kicker">
+            One last little secret...
+        </div>
+
+        <h2>
+            Touch the heart ❤️
+        </h2>
+
+        <p>
+            There's something I really want you to know.
+        </p>
+
+        <div class="secret-heart" id="secretHeart">
+            ❤️
+        </div>
+
+        <div class="secret-message" id="secretMessage">
+
+            <h2 class="pink">
+                You are my favourite person. ❤️
+            </h2>
+
+            <p>
+                And I hope you never forget just how special
+                you are to me.
+            </p>
+
+        </div>
+
+        <button class="next-btn" id="secretNext" aria-label="Continue">
+            💖
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SCENE 9 FINAL
+========================= -->
+
+<section class="scene" data-scene="8">
+
+    <div class="scene-inner">
+
+        <div id="finalMessage">
+
+            <div class="big-heart">
+                ❤️
+            </div>
+
+            <div class="kicker">
+                My favourite girl
+            </div>
+
+            <div class="final-title">
+                🎂 HAPPY BIRTHDAY 🎂
+            </div>
+
+            <div class="love-you">
+                MY LAADO ❤️
+            </div>
+
+            <p>
+                I Love You Laado💋💗
+            </p>
+
+            <div style="
+                font-size:36px;
+                margin:22px 0;
+                animation: heartBeat 1.2s infinite;
+            ">
+                😘💋💋💋❤️‍🔥💋💋💋😘
+            </div>
+
+            <p>
+                Happy Birthday to the girl who makes my world
+                feel warmer, happier and complete.
+            </p>
+
+            <p style="
+                margin-top:15px;
+                color:#ff91b2;
+                font-size:18px;
+            ">
+                Today. Tomorrow. Always. ❤️♾️
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+</div>
+
+
+<!-- =========================
+     TAP HINT
+========================= -->
+
+<div class="tap-hint" id="tapHint">
+    <span>♡</span>
+    Tap anywhere to continue
+    <span>♡</span>
+</div>
+
+
+<!-- =========================
+     FLOATING ANIMATIONS
+========================= -->
+
+<div class="floating-layer" id="floatingLayer"></div>
+
+
+<!-- =========================
+     POPUP
+========================= -->
+
+<div class="popup" id="popup">
+
+    <div class="popup-box">
+
+        <h3 id="popupTitle">
+            ❤️
+        </h3>
+
+        <p id="popupText">
+        </p>
+
+        <button class="popup-close" id="popupClose">
+            Close ❤️
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   STORY NAVIGATION
+========================================================= */
+
+const scenes = [...document.querySelectorAll(".scene")];
+
+let currentScene = 0;
+
+let isAnimating = false;
+
+const tapHint = document.getElementById("tapHint");
+
+
+function showScene(index) {
+
+    if (index < 0 || index >= scenes.length) return;
+
+    isAnimating = true;
+
+    scenes.forEach((scene, i) => {
+
+        scene.classList.toggle(
+            "active",
+            i === index
+        );
+
+    });
+
+    currentScene = index;
+
+    setTimeout(() => {
+        isAnimating = false;
+    }, 750);
+
+    if (currentScene === scenes.length - 1) {
+
+        tapHint.style.display = "none";
+
+        setTimeout(() => {
+
+            document
+                .getElementById("finalMessage")
+                .classList.add("show");
+
+            heartExplosion();
+
+        }, 700);
+
+    } else {
+
+        tapHint.style.display = "block";
+
+    }
+
+    createBurst(
+        window.innerWidth / 2,
+        window.innerHeight / 2,
+        12
+    );
+}
+
+
+function nextScene() {
+
+    if (isAnimating) return;
+
+    if (currentScene < scenes.length - 1) {
+
+        showScene(currentScene + 1);
+
+    }
+
+}
+
+
+/* =========================================================
+   TAP ANYWHERE
+========================================================= */
+
+document.addEventListener(
+    "click",
+    function(e) {
+
+        if (
+            e.target.closest(".next-btn") ||
+            e.target.closest(".card") ||
+            e.target.closest(".promise") ||
+            e.target.closest(".secret-heart") ||
+            e.target.closest(".popup") ||
+            e.target.closest("button")
+        ) {
+            return;
+        }
+
+        nextScene();
+
+    },
+    { passive: true }
+);
+
+
+/* =========================================================
+   MOBILE TOUCH SUPPORT
+   This fixes the GitHub Pages mobile tap issue.
+========================================================= */
+
+let touchStartX = 0;
+let touchStartY = 0;
+
+document.addEventListener(
+    "touchstart",
+    function(e) {
+
+        if (!e.touches.length) return;
+
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+
+    },
+    { passive: true }
+);
+
+
+document.addEventListener(
+    "touchend",
+    function(e) {
+
+        if (!e.changedTouches.length) return;
+
+        const x = e.changedTouches[0].clientX;
+        const y = e.changedTouches[0].clientY;
+
+        const dx = Math.abs(x - touchStartX);
+        const dy = Math.abs(y - touchStartY);
+
+        /* Only treat it as a tap,
+           NOT a swipe */
+
+        if (dx < 20 && dy < 20) {
+
+            const target = e.target;
+
+            if (
+                target.closest(".next-btn") ||
+                target.closest(".card") ||
+                target.closest(".promise") ||
+                target.closest(".secret-heart") ||
+                target.closest(".popup") ||
+                target.closest("button")
+            ) {
+                return;
+            }
+
+            nextScene();
+
+        }
+
+    },
+    { passive: true }
+);
+
+
+/* =========================================================
+   NEXT BUTTONS
+========================================================= */
+
+document.querySelectorAll(".next-btn").forEach(btn => {
+
+    btn.addEventListener("click", function(e) {
+
+        e.stopPropagation();
+
+        nextScene();
+
+    });
+
+});
+
+
+/* =========================================================
+   COUNTDOWN
+========================================================= */
+
+const birthday =
+    new Date("2026-10-18T00:00:00+05:30");
+
+
+function updateBirthdayCountdown() {
+
+    const now = new Date();
+
+    let diff = birthday - now;
+
+    if (diff < 0) diff = 0;
+
+    const days =
+        Math.floor(diff / 86400000);
+
+    const hours =
+        Math.floor(
+            (diff % 86400000) / 3600000
+        );
+
+    const minutes =
+        Math.floor(
+            (diff % 3600000) / 60000
+        );
+
+    const seconds =
+        Math.floor(
+            (diff % 60000) / 1000
+        );
+
+    document.getElementById("days").textContent =
+        days;
+
+    document.getElementById("hours").textContent =
+        hours;
+
+    document.getElementById("minutes").textContent =
+        minutes;
+
+    document.getElementById("seconds").textContent =
+        seconds;
+
+}
+
+setInterval(
+    updateBirthdayCountdown,
+    1000
+);
+
+updateBirthdayCountdown();
+
+
+/* =========================================================
+   RELATIONSHIP COUNTER
+========================================================= */
+
+const relationshipStart =
+    new Date("2026-07-24T00:00:00+05:30");
+
+
+function updateRelationship() {
+
+    const now = new Date();
+
+    let diff =
+        now - relationshipStart;
+
+    if (diff < 0) diff = 0;
+
+    const days =
+        Math.floor(diff / 86400000);
+
+    const hours =
+        Math.floor(
+            (diff % 86400000) / 3600000
+        );
+
+    const minutes =
+        Math.floor(
+            (diff % 3600000) / 60000
+        );
+
+    document.getElementById("relDays").textContent =
+        days;
+
+    document.getElementById("relHours").textContent =
+        hours;
+
+    document.getElementById("relMinutes").textContent =
+        minutes;
+
+}
+
+setInterval(
+    updateRelationship,
+    1000
+);
+
+updateRelationship();
+
+
+/* =========================================================
+   LOVE REASON POPUPS
+========================================================= */
+
+const popup =
+    document.getElementById("popup");
+
+const popupTitle =
+    document.getElementById("popupTitle");
+
+const popupText =
+    document.getElementById("popupText");
+
+const popupClose =
+    document.getElementById("popupClose");
+
+
+document.querySelectorAll(".reason").forEach(card => {
+
+    card.addEventListener("click", function(e) {
+
+        e.stopPropagation();
+
+        popupTitle.textContent =
+            card.dataset.title;
+
+        popupText.textContent =
+            card.dataset.text;
+
+        popup.classList.add("show");
+
+        createBurst(
+            e.clientX || window.innerWidth / 2,
+            e.clientY || window.innerHeight / 2,
+            15
+        );
+
+    });
+
+});
+
+
+popupClose.addEventListener("click", function(e) {
+
+    e.stopPropagation();
+
+    popup.classList.remove("show");
+
+});
+
+
+popup.addEventListener("click", function(e) {
+
+    if (e.target === popup) {
+
+        popup.classList.remove("show");
+
+    }
+
+});
+
+
+/* =========================================================
+   PROMISE FLIP
+========================================================= */
+
+document.querySelectorAll(".promise").forEach(card => {
+
+    card.addEventListener("click", function(e) {
+
+        e.stopPropagation();
+
+        card.classList.toggle("flipped");
+
+        createBurst(
+            e.clientX,
+            e.clientY,
+            10
+        );
+
+    });
+
+});
+
+
+/* =========================================================
+   SECRET HEART
+========================================================= */
+
+const secretHeart =
+    document.getElementById("secretHeart");
+
+const secretMessage =
+    document.getElementById("secretMessage");
+
+
+secretHeart.addEventListener("click", function(e) {
+
+    e.stopPropagation();
+
+    secretMessage.classList.add("show");
+
+    heartBurstAt(
+        e.clientX,
+        e.clientY
+    );
+
+});
+
+
+document
+    .getElementById("secretNext")
+    .addEventListener("click", function(e) {
+
+        e.stopPropagation();
+
+        nextScene();
+
+    });
+
+
+/* =========================================================
+   RANDOM FLOATING LOVE ANIMATIONS
+========================================================= */
+
+const floatingLayer =
+    document.getElementById("floatingLayer");
+
+
+const loveSymbols = [
+    "❤️",
+    "💕",
+    "💖",
+    "💗",
+    "💘",
+    "💝",
+    "❤️‍🔥",
+    "💋",
+    "😘",
+    "✨",
+    "🌹",
+    "🥰",
+    "🫶"
+];
+
+
+function createFloatingLove() {
+
+    const item =
+        document.createElement("div");
+
+    item.className =
+        "float-item";
+
+    item.textContent =
+        loveSymbols[
+            Math.floor(
+                Math.random() *
+                loveSymbols.length
+            )
+        ];
+
+    item.style.left =
+        Math.random() * 100 + "%";
+
+    item.style.fontSize =
+        (14 + Math.random() * 25) + "px";
+
+    const duration =
+        5 + Math.random() * 6;
+
+    item.style.animationDuration =
+        duration + "s";
+
+    floatingLayer.appendChild(item);
+
+    setTimeout(() => {
+
+        item.remove();
+
+    }, duration * 1000);
+
+}
+
+
+setInterval(
+    createFloatingLove,
+    500
+);
+
+
+/* =========================================================
+   RANDOM SPARKLES
+========================================================= */
+
+function createSparkle() {
+
+    const sparkle =
+        document.createElement("div");
+
+    sparkle.className =
+        "sparkle";
+
+    sparkle.style.left =
+        Math.random() * 100 + "%";
+
+    sparkle.style.top =
+        Math.random() * 100 + "%";
+
+    document.body.appendChild(
+        sparkle
+    );
+
+    setTimeout(() => {
+
+        sparkle.remove();
+
+    }, 1800);
+
+}
+
+
+setInterval(
+    createSparkle,
+    700
+);
+
+
+/* =========================================================
+   CLICK BURST
+========================================================= */
+
+function createBurst(x, y, amount = 12) {
+
+    for (let i = 0; i < amount; i++) {
+
+        const item =
+            document.createElement("div");
+
+        item.textContent =
+            loveSymbols[
+                Math.floor(
+                    Math.random() *
+                    loveSymbols.length
+                )
+            ];
+
+        item.style.position =
+            "fixed";
+
+        item.style.left =
+            x + "px";
+
+        item.style.top =
+            y + "px";
+
+        item.style.fontSize =
+            (14 + Math.random() * 20) + "px";
+
+        item.style.pointerEvents =
+            "none";
+
+        item.style.zIndex =
+            "400";
+
+        item.style.transition =
+            "1s ease";
+
+        document.body.appendChild(
+            item
+        );
+
+        const angle =
+            Math.random() *
+            Math.PI * 2;
+
+        const distance =
+            40 + Math.random() * 100;
+
+        requestAnimationFrame(() => {
+
+            item.style.transform =
+                `translate(
+                    ${Math.cos(angle) * distance}px,
+                    ${Math.sin(angle) * distance}px
+                ) scale(.3)`;
+
+            item.style.opacity =
+                "0";
+
+        });
+
+        setTimeout(() => {
+
+            item.remove();
+
+        }, 1100);
+
+    }
+
+}
+
+
+/* =========================================================
+   HEART BURST
+========================================================= */
+
+function heartBurstAt(x, y) {
+
+    createBurst(
+        x,
+        y,
+        35
+    );
+
+}
+
+
+/* =========================================================
+   FINAL HEART EXPLOSION
+========================================================= */
+
+function heartExplosion() {
+
+    const centerX =
+        window.innerWidth / 2;
+
+    const centerY =
+        window.innerHeight / 2;
+
+    const big =
+        document.createElement("div");
+
+    big.className =
+        "blast-heart";
+
+    big.textContent =
+        "❤️";
+
+    document.body.appendChild(big);
+
+    setTimeout(() => {
+        big.remove();
+    }, 1500);
+
+
+    /* Main explosion */
+
+    for (let i = 0; i < 140; i++) {
+
+        const item =
+            document.createElement("div");
+
+        item.textContent =
+            loveSymbols[
+                Math.floor(
+                    Math.random() *
+                    loveSymbols.length
+                )
+            ];
+
+        item.style.position =
+            "fixed";
+
+        item.style.left =
+            centerX + "px";
+
+        item.style.top =
+            centerY + "px";
+
+        item.style.fontSize =
+            (16 + Math.random() * 35) + "px";
+
+        item.style.pointerEvents =
+            "none";
+
+        item.style.zIndex =
+            "600";
+
+        item.style.transition =
+            "transform 2.2s cubic-bezier(.1,.8,.2,1), opacity 2.2s";
+
+        document.body.appendChild(
+            item
+        );
+
+        const angle =
+            Math.random() *
+            Math.PI * 2;
+
+        const distance =
+            120 + Math.random() * 450;
+
+        requestAnimationFrame(() => {
+
+            item.style.transform =
+                `translate(
+                    ${Math.cos(angle) * distance}px,
+                    ${Math.sin(angle) * distance}px
+                )
+                rotate(${Math.random()*720}deg)
+                scale(${.5 + Math.random()})`;
+
+            item.style.opacity =
+                "0";
+
+        });
+
+        setTimeout(() => {
+
+            item.remove();
+
+        }, 2300);
+
+    }
+
+
+    /* Second wave */
+
+    setTimeout(() => {
+
+        for (let i = 0; i < 60; i++) {
+
+            const item =
+                document.createElement("div");
+
+            item.textContent =
+                Math.random() > .5
+                    ? "💋"
+                    : "❤️";
+
+            item.style.position =
+                "fixed";
+
+            item.style.left =
+                centerX + "px";
+
+            item.style.top =
+                centerY + "px";
+
+            item.style.fontSize =
+                (20 + Math.random() * 25) + "px";
+
+            item.style.pointerEvents =
+                "none";
+
+            item.style.zIndex =
+                "600";
+
+            item.style.transition =
+                "2s ease";
+
+            document.body.appendChild(
+                item
+            );
+
+            const angle =
+                Math.random() *
+                Math.PI * 2;
+
+            const distance =
+                100 + Math.random() * 350;
+
+            requestAnimationFrame(() => {
+
+                item.style.transform =
+                    `translate(
+                        ${Math.cos(angle) * distance}px,
+                        ${Math.sin(angle) * distance}px
+                    )`;
+
+                item.style.opacity =
+                    "0";
+
+            });
+
+            setTimeout(() => {
+
+                item.remove();
+
+            }, 2100);
+
+        }
+
+    }, 800);
+
+}
+
+
+/* =========================================================
+   RANDOM HEART BURSTS DURING STORY
+========================================================= */
+
+setInterval(() => {
+
+    if (
+        currentScene !== scenes.length - 1 &&
+        Math.random() > .35
+    ) {
+
+        createBurst(
+            Math.random() * window.innerWidth,
+            Math.random() * window.innerHeight,
+            3
+        );
+
+    }
+
+}, 2500);
+
+
+/* =========================================================
+   KEYBOARD SUPPORT
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(e) {
+
+        if (
+            e.key === "ArrowRight" ||
+            e.key === " " ||
+            e.key === "Enter"
+        ) {
+
+            e.preventDefault();
+
+            nextScene();
+
+        }
+
+        if (e.key === "Escape") {
+
+            popup.classList.remove("show");
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   PREVENT ACCIDENTAL PAGE SCROLL
+========================================================= */
+
+document.addEventListener(
+    "wheel",
+    function(e) {
+
+        e.preventDefault();
+
+    },
+    { passive: false }
+);
+
+
+document.addEventListener(
+    "touchmove",
+    function(e) {
+
+        /*
+          Prevent browser page scrolling,
+          while allowing taps.
+        */
+
+        if (
+            !e.target.closest(".scene-inner")
+        ) {
+
+            e.preventDefault();
+
+        }
+
+    },
+    { passive: false }
+);
+
+</script>
+
+</body>
+</html>
